@@ -14,6 +14,7 @@ function App() {
   return (
     <>
      <BrowserRouter>
+     
       <Routes>
         {/* Main Layout wrapping the routes (estas rutas ve la perosna que esta logueada) */}
         <Route path="/" element={<MainLayout />}>

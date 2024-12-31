@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from "../assets/logo.png";
 import { Link } from 'react-router-dom';
+import { X } from 'lucide-react';
 
 function Login() {
     return (
@@ -13,7 +14,9 @@ function Login() {
                     <h2 class="text-2xl font-medium text-slate-700">Login</h2>
                     <p class="text-slate-500">Enter details below.</p>
                 </div> */}
-
+                    <Link to="/">
+                        <X size={24} />
+                    </Link>
                     <div className="flex-shrink-0 w-[100%] flex justify-center ">
                         <Link className="block text-teal-600" to="/">
                             <img src={logo} alt="logo" className="w-[100px]" />
