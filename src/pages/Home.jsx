@@ -3,6 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import MobileEfect from '../components/MobileEfect';
 import CiudadBanner from '../components/CiudadBanner';
+import Maps from '../components/Maps';
 function Home() {
     useEffect(() => {
         AOS.init();
@@ -140,6 +141,7 @@ function Home() {
                 </div>
                 <MobileEfect/>
                 <CiudadBanner/>
+                <Maps/>
             </div>
         </>
     )
