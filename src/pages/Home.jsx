@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import MobileEfect from '../components/MobileEfect';
+import CiudadBanner from '../components/CiudadBanner';
 function Home() {
     useEffect(() => {
         AOS.init();
@@ -138,6 +139,7 @@ function Home() {
                     ))}
                 </div>
                 <MobileEfect/>
+                <CiudadBanner/>
             </div>
         </>
     )
