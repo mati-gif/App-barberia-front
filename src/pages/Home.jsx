@@ -1,9 +1,34 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import MobileEfect from '../components/MobileEfect';
 function Home() {
+    useEffect(() => {
+        AOS.init();
+    }, []);
+    const services = [
+        {
+            title: "HAIR",
+            image: "https://cdn.prod.website-files.com/66e9959dc77a9ebbe055c1e0/66f2c30a02fb99ab19138d28_Shaving%20Cream.avif",
+        },
+        {
+            title: "BODY WAXING",
+            image: "https://b541f621df59ce97c38c.cdn6.editmysite.com/uploads/b/b541f621df59ce97c38c6ecd7adfd9863682cc048c4c023b16cdcb59c9efd8d3/2024-10-10_01-00-03_1728536420.jpg?width=400&dpr=1",
+
+        },
+        {
+            title: "NAILS",
+            image: "https://cdn.prod.website-files.com/66e9b8427b526c4c3de82fa8/66f2f05c43327497a6417002_Fade.jpg",
+
+        },
+        {
+            title: "BROWS & LASHES",
+            image: "https://b541f621df59ce97c38c.cdn6.editmysite.com/uploads/b/b541f621df59ce97c38c6ecd7adfd9863682cc048c4c023b16cdcb59c9efd8d3/WhatsApp%20Image%202024-09-28%20at%207.44.29%20PM_1728536306.jpeg?width=2400&optimize=medium",
+        }
+    ]
     return (
         <>
-            <div className='border-4 border-red-500  min-h-[250vh] '>
+            <div className='border-4 border-red-500  min-h-[550vh] '>
                 <section
                     className="relative bg-[url(https://images.squarespace-cdn.com/content/v1/59a04de337c581c5e1bcd854/1710998377547-DWXDZA5WIX8Q9VKFF0WC/AAA01567.jpg?format=1500w)] bg-cover bg-center bg-no-repeat"
                 >
@@ -40,7 +65,12 @@ function Home() {
                     </div>
                 </section>
                 <div className='border-2 border-[#48e] w-full h-[100vh] flex justify-center items-center'>
-                    <div className="relative w-full max-w-md mx-auto">
+                    <div data-aos="fade-right"
+                        data-aos-offset="300"
+                        data-aos-easing="ease-in-sine"
+                        // data-aos-duration="3000"
+
+                        className="relative w-full max-w-md mx-auto">
                         {/* Striped background */}
                         <div className="absolute bg-[url(https://studio-dbrickell.com/wp-content/uploads/2022/12/2-1.jpg)] bg-cover bg-center bg-no-repeat 
                         -top-[10%] -left-[15%] w-full h-full ">
@@ -60,21 +90,54 @@ function Home() {
                         </div>
                     </div>
 
-                    <div 
+                    <div data-aos="fade-left"
+                        // data-aos-offset="400"
+                        data-aos-duration="3000"
+
+                        // data-aos-easing="ease-in-sine"
                         className='border-2 border-purple-500 w-[50%] h-[75%]'>
                         <h2 className='text-[#000] text-[50px] font-serif font-bold'>Welcome To
                             BARBER SHOP</h2>
                         <h3 className="text-[#000] text-[30px] font-serif  ">Come As You Are, Leave At Your Best</h3>
-                        <p className='mt-3 text-[#000] text-[18px]'>High-quality beauty services that build your confidence and transform your looks are what you can expect with every trip you take to Studio-D Brickell. We are your premier high-end salon in Miami, FL, that delivers the looks and styles you desire that will keep heads turning. Whether you’re looking for a fabulous hairstyle, eyelash extensions, Keratin treatment, or another personalized salon service, you’ve come to the right place.
+                        <p data-aos="fade-left"
+                            // data-aos-offset="400"
+                            data-aos-duration="3000"
+                            className='mt-3 text-[#000] text-[18px]'>High-quality beauty services that build your confidence and transform your looks are what you can expect with every trip you take to Studio-D Brickell. We are your premier high-end salon in Miami, FL, that delivers the looks and styles you desire that will keep heads turning. Whether you’re looking for a fabulous hairstyle, eyelash extensions, Keratin treatment, or another personalized salon service, you’ve come to the right place.
                         </p>
                         <div className='border-2 border-yellow-500 flex justify-center items-center'>
-                        <button className='bg-[#000] text-[#fff] px-4 py-2 mt-4 rounded-md hover:bg-[#181818] hover:text-[#fff]'>
-                            Book Now
-                        </button>
+                            <button data-aos="fade-up"
+                                data-aos-duration="3000"
+                                className='bg-[#000] text-[#fff] px-4 py-2 mt-4 rounded-md hover:bg-[#181818] hover:text-[#fff]'>
+                                Book Now
+                            </button>
                         </div>
 
                     </div>
                 </div>
+                <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 max-w-7xl mx-auto">
+                    {services.map((service, index) => (
+                        <div key={index} className="relative group overflow-hidden">
+                            {/* Image container with hover effect */}
+                            <div className="relative aspect-[3/4] overflow-hidden">
+                                <img
+                                    src={service.image}
+                                    alt={service.title}
+                                    className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                                />
+                                {/* Dark overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                            </div>
+
+                            {/* Title */}
+                            <div className="absolute bottom-6 left-0 w-full text-center">
+                                <h3 className="text-white text-xl font-light tracking-wider">
+                                    {service.title}
+                                </h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <MobileEfect/>
             </div>
         </>
     )
