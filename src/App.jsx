@@ -7,6 +7,7 @@ import MainLayout from './Layout/MainLayout'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import BarberShop from './pages/BarberShop'
 
 function App() {
 
@@ -14,17 +15,12 @@ function App() {
   return (
     <>
      <BrowserRouter>
-     
+
       <Routes>
         {/* Main Layout wrapping the routes (estas rutas ve la perosna que esta logueada) */}
         <Route path="/" element={<MainLayout />}>
-
           <Route index element={<Home />} className="main" />
-
-
-
-
-
+          <Route path="/barberShop" element={<BarberShop />} />
 
         </Route>
 
@@ -32,6 +28,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
       </Routes>
     </BrowserRouter>
     </>

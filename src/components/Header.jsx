@@ -62,12 +62,12 @@ function Header() {
                                     </li>
 
                                     <li>
-                                        <a
+                                        <Link to="/barberShop"
                                             className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                             href="#"
                                         >
                                             BarberShop
-                                        </a>
+                                        </Link>
                                     </li>
 
 
