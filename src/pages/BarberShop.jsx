@@ -1,6 +1,7 @@
 import React from 'react'
 import { Phone } from 'lucide-react'
 import BannerInBarberShop from '../components/bannerInBarberShop'
+import Locations from '../components/Locations'
 function BarberShop() {
     const businessHours = [
         { day: "MON", hours: "9:00 am – 7:00 pm" },
@@ -14,7 +15,7 @@ function BarberShop() {
 
     return (
         <>
-            <div className='border-4 border-red-500  min-h-[200vh] '>
+            <div className='border-4 border-red-500  min-h-[250vh] '>
                 <div className='border-2 border-[#2e4] min-h-[100vh]'>
                     <section className="container mx-auto px-4 py-12">
                         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -84,6 +85,7 @@ function BarberShop() {
                 </div>
 
                 <BannerInBarberShop/>
+                <Locations/>
             </div>
         </>
     )
