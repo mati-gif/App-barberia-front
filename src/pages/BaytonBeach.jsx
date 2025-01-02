@@ -1,9 +1,9 @@
 import React from 'react'
 
 function BaytonBeach() {
-  return (
-    <>
-     <div className="border-4 border-red-500  min-h-[300vh]">
+    return (
+        <>
+            <div className="border-4 border-red-500  min-h-[300vh]">
                 <section
                     className=" relative bg-[url(https://thespotbarbershop.com/wp-content/uploads/2016/11/Miracle.jpg)] bg-cover bg-center bg-no-repeat"
                 >
@@ -16,7 +16,7 @@ function BaytonBeach() {
                     >
                         <div className="flex flex-col justify-end border-2 border-[#48e] h-[100%] max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                             <h1 className="text-5xl font-bold text-[#fff] sm:text-5xl">
-                            Boyton Beach
+                                Boyton Beach
 
                                 {/* <strong className="block font-bold text-[#fff]"> Best Style. </strong> */}
                             </h1>
@@ -85,65 +85,66 @@ function BaytonBeach() {
                     </div>
                 </div>
 
-                <div className=' border-4 border-red-500  h-screen flex flex-col justify-center items-center'>
-                <div
-                    class=" w-[30%] rounded-lg shadow-xl h-[66%] p-6 bg-white relative overflow-hidden"
-                >
-                    <h2 className='text-[#545454] text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
-                    <div className="flex-shrink-0 w-[100%] flex justify-center ">
-                    </div>
-                    <form class="w-full mt-4 space-y-3 border-2 border-red-500">
-                    <div>
-                            <input
-                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                placeholder="First Name"
-                                id="FirstName"
-                                name="FirstName"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <input
-                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                placeholder="Last Name"
-                                id="LastName"
-                                name="LastName"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <input
-                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                placeholder="Email"
-                                id="Email"
-                                name="Email"
-                                type="email"
-                            />
-                        </div>
-                        <div>
-                            <input
-                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                placeholder="Password"
-                                id="password"
-                                name="password"
-                                type="password"
-                            />
-                        </div>
 
-                        <button
-                            class="w-full justify-center py-1 bg-[#C57C15] hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2"
-                            id="Register"
-                            name="Register"
-                            type="submit"
-                        >
-                            Register
-                        </button>
-                    </form>
+                <div className=' border-4 border-red-500  h-[80vh] flex flex-col justify-center items-center'>
+                    <div
+                        class=" w-[30%]  h-[66%] p-6 relative overflow-hidden"
+                    >
+                        <h2 className='text-[#545454] text-center text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
+                        <div className="flex-shrink-0 w-[100%] flex justify-center ">
+                        </div>
+                        <form class="w-full mt-4 space-y-3 border-2 border-red-500">
+                            <div>
+                                <input
+                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                    placeholder="First Name"
+                                    id="FirstName"
+                                    name="FirstName"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                    placeholder="Last Name"
+                                    id="LastName"
+                                    name="LastName"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                    placeholder="Email"
+                                    id="Email"
+                                    name="Email"
+                                    type="email"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                    placeholder="Password"
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                />
+                            </div>
+
+                            <button
+                                class="w-full justify-center py-1 bg-[#C57C15] hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2"
+                                id="Register"
+                                name="Register"
+                                type="submit"
+                            >
+                                Register
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            </div>
-    </>
-  )
+        </>
+    )
 }
 
 export default BaytonBeach

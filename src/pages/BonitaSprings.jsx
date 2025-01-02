@@ -90,11 +90,12 @@ function BonitaSprings() {
                     </div>
                 </div>
 
-                <div className=' border-4 border-red-500  h-screen flex flex-col justify-center items-center'>
+
+                <div className=' border-4 border-red-500  h-[80vh] flex flex-col justify-center items-center'>
                     <div
-                        class=" w-[30%] rounded-lg shadow-xl h-[66%] p-6 bg-white relative overflow-hidden"
+                        class=" w-[30%]  h-[66%] p-6 relative overflow-hidden"
                     >
-                        <h2 className='text-[#545454] text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
+                        <h2 className='text-[#545454] text-center text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
                         <div className="flex-shrink-0 w-[100%] flex justify-center ">
                         </div>
                         <form class="w-full mt-4 space-y-3 border-2 border-red-500">
