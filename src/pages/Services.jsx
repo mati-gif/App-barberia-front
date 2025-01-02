@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ListServices from '../components/ListServices';
 function Services() {
     useEffect(() => {
         AOS.init();
@@ -34,7 +35,7 @@ function Services() {
                     <div className="grid md:grid-cols-2 gap-8 items-center">
                         {/* Image Section */}
                         <div className="relative aspect-[4/3] overflow-hidden">
-                            <img
+                            <img data-aos="zoom-in" data-aos-duration="3000"
                                 src="https://cdn.prod.website-files.com/66e9959dc77a9ebbe055c1e0/66eb2a084a8c78155b00c949_365969987_805714151201257_1669159942215917482_n.avif"
                                 alt="Barber applying hot towel treatment"
                                 className="w-full h-full object-cover rounded-lg"
@@ -85,7 +86,7 @@ function Services() {
 
                         {/* Image Section */}
                         <div className="relative aspect-[4/3] overflow-hidden">
-                            <img
+                            <img data-aos="zoom-in" data-aos-duration="3000"
                                 src="https://cdn.prod.website-files.com/66e9959dc77a9ebbe055c1e0/6759d76e35ae9244b2d9e8cc_pexels-airamdphoto-29707925.jpg"
                                 alt="Barber applying hot towel treatment"
                                 className="w-full h-full object-cover rounded-lg"
@@ -98,7 +99,7 @@ function Services() {
                     <div className="grid md:grid-cols-2 gap-8 items-center">
                         {/* Image Section */}
                         <div className="relative aspect-[4/3] overflow-hidden">
-                            <img
+                            <img data-aos="zoom-in-up" data-aos-duration="3000"
                                 src="https://cdn.prod.website-files.com/66e9959dc77a9ebbe055c1e0/6759f4d0afa1db062123975f_pexels-kevinshrmasc-29650216.jpg"
                                 alt="Barber applying hot towel treatment"
                                 className="w-full h-full object-cover rounded-lg"
@@ -120,6 +121,7 @@ function Services() {
                         </div>
                     </div>
                 </div>
+                <ListServices />
             </div>
         </>
     )
