@@ -9,6 +9,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import BarberShop from './pages/BarberShop'
 import BonitaSprings from './pages/BonitaSprings'
+import BaytonBeach from './pages/BaytonBeach'
+import CoralWay from './pages/CoralWay'
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
           <Route index element={<Home />} className="main" />
           <Route path="/barberShop" element={<BarberShop />} />
           <Route path="/BonitaSpring" element={<BonitaSprings/>} />
+          <Route path="/BoytonBeach" element={<BaytonBeach/>} />
+          <Route path="/CoralWay" element={<CoralWay/>} />
 
 
         </Route>

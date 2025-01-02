@@ -10,9 +10,9 @@ function Locations() {
             name:"BONITA SPRINGS"
         },
         {
-            route: "BaytonBeach",
+            route: "BoytonBeach",
             img: "https://images.myguide-cdn.com/miami/companies/the-spot-barbershop-cocowalk/large/the-spot-barbershop-cocowalk-1418641.jpg",
-            name:"BAYTON BEACH"
+            name:"BOYTON BEACH"
         },
         {
             route: "CoralWay",

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function BonitaSprings() {
-    return (
-        <>
-            <div className="border-4 border-red-500  min-h-[300vh]">
+function BaytonBeach() {
+  return (
+    <>
+     <div className="border-4 border-red-500  min-h-[300vh]">
                 <section
                     className=" relative bg-[url(https://thespotbarbershop.com/wp-content/uploads/2016/11/Miracle.jpg)] bg-cover bg-center bg-no-repeat"
                 >
@@ -16,22 +16,19 @@ function BonitaSprings() {
                     >
                         <div className="flex flex-col justify-end border-2 border-[#48e] h-[100%] max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                             <h1 className="text-5xl font-bold text-[#fff] sm:text-5xl">
-                                Bonita Springs
+                            Boyton Beach
 
                                 {/* <strong className="block font-bold text-[#fff]"> Best Style. </strong> */}
                             </h1>
 
                         </div>
-                        <h2 className='text-3xl  text-[#fff] sm:text-5xl'>25 SW 9th St
-                            Level MR
-                            Miami, FL 33130
-                        </h2>
+                        <h2 className='text-3xl  text-[#fff] sm:text-5xl'>398 N Congress Ave, Boynton Beach, FL 33426</h2>
                     </div>
                 </section>
                 <div className='border-2 border-[#48e] w-full gap-[30px] min-h-[100vh] flex justify-center items-center'>
                     <div className='flex flex-col gap-4 border-2 border-[#87e] min-h-[100%] w-[35%]'>
                         <h2 className='text-[#545454] text-[30px] font-bold '>
-                            BARBERSHOP - BONITA SPRINGS
+                            BARBERSHOP - BOYNTON BEACH
                         </h2>
                         <h3 className='text-[#545454] text-[16px] font-bold '>
                             Hours of Operation:
@@ -65,9 +62,8 @@ function BonitaSprings() {
                         <div>
                             <h2 className="text-lg font-medium text-gray-700 mb-2">Address:</h2>
                             <div className="space-y-1 pl-4">
-                                <p>25 SW 9th St
-                                    Level MR
-                                    Miami, FL 33130</p>
+                                <p>398 N Congress Ave,
+                                    Boynton Beach, FL 33426</p>
                             </div>
                         </div>
                         <div className='m-auto'>
@@ -78,7 +74,7 @@ function BonitaSprings() {
                     </div>
                     <div className='flex flex-col gap-4 border-2 border-[#87a] min-h-[100%] w-[35%]'>
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d94725.06045080704!2d-80.42500734329225!3d25.821004708483894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9bbb9371d56b9%3A0x8f1742ba3193f1bb!2sThe%20Spot%20Barbershop%20%E2%80%93%20Miami%20Springs!5e1!3m2!1sen!2sus!4v1735839397583!5m2!1sen!2sus"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11768.703357387763!2d-80.089704!3d26.531247!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d8df98c4733dd7%3A0x3dfd882a6c9ecc92!2sThe%20Spot%20Barbershop%20-%20Boynton%20Beach!5e1!3m2!1sen!2sus!4v1735832739555!5m2!1sen!2sus"
                             width="461"
                             height="700"
                             style={{ border: 0 }}
@@ -86,69 +82,68 @@ function BonitaSprings() {
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
-                        {/* <iframe src="" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
                     </div>
                 </div>
 
                 <div className=' border-4 border-red-500  h-screen flex flex-col justify-center items-center'>
-                    <div
-                        class=" w-[30%] rounded-lg shadow-xl h-[66%] p-6 bg-white relative overflow-hidden"
-                    >
-                        <h2 className='text-[#545454] text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
-                        <div className="flex-shrink-0 w-[100%] flex justify-center ">
-                        </div>
-                        <form class="w-full mt-4 space-y-3 border-2 border-red-500">
-                            <div>
-                                <input
-                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                    placeholder="First Name"
-                                    id="FirstName"
-                                    name="FirstName"
-                                    type="text"
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                    placeholder="Last Name"
-                                    id="LastName"
-                                    name="LastName"
-                                    type="text"
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                    placeholder="Email"
-                                    id="Email"
-                                    name="Email"
-                                    type="email"
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
-                                    placeholder="Password"
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                />
-                            </div>
-
-                            <button
-                                class="w-full justify-center py-1 bg-[#C57C15] hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2"
-                                id="Register"
-                                name="Register"
-                                type="submit"
-                            >
-                                Register
-                            </button>
-                        </form>
+                <div
+                    class=" w-[30%] rounded-lg shadow-xl h-[66%] p-6 bg-white relative overflow-hidden"
+                >
+                    <h2 className='text-[#545454] text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
+                    <div className="flex-shrink-0 w-[100%] flex justify-center ">
                     </div>
+                    <form class="w-full mt-4 space-y-3 border-2 border-red-500">
+                    <div>
+                            <input
+                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                placeholder="First Name"
+                                id="FirstName"
+                                name="FirstName"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                placeholder="Last Name"
+                                id="LastName"
+                                name="LastName"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                placeholder="Email"
+                                id="Email"
+                                name="Email"
+                                type="email"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
+                                placeholder="Password"
+                                id="password"
+                                name="password"
+                                type="password"
+                            />
+                        </div>
+
+                        <button
+                            class="w-full justify-center py-1 bg-[#C57C15] hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2"
+                            id="Register"
+                            name="Register"
+                            type="submit"
+                        >
+                            Register
+                        </button>
+                    </form>
                 </div>
             </div>
-        </>
-    )
+            </div>
+    </>
+  )
 }
 
-export default BonitaSprings
+export default BaytonBeach
