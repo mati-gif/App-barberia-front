@@ -11,6 +11,7 @@ import BarberShop from './pages/BarberShop'
 import BonitaSprings from './pages/BonitaSprings'
 import BaytonBeach from './pages/BaytonBeach'
 import CoralWay from './pages/CoralWay'
+import Services from './pages/Services'
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
           <Route path="/BonitaSpring" element={<BonitaSprings/>} />
           <Route path="/BoytonBeach" element={<BaytonBeach/>} />
           <Route path="/CoralWay" element={<CoralWay/>} />
+          <Route path="/services" element={<Services/>} />
+
 
 
         </Route>
