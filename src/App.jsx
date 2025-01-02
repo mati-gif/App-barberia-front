@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import BarberShop from './pages/BarberShop'
+import BonitaSprings from './pages/BonitaSprings'
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} className="main" />
           <Route path="/barberShop" element={<BarberShop />} />
+          <Route path="/BonitaSpring" element={<BonitaSprings/>} />
+
 
         </Route>
 
