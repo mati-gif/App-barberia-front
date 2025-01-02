@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from "../assets/logo.png";
 
 function Header() {
@@ -8,6 +8,9 @@ function Header() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    
+    const location = useLocation();
     return (
         <>
             <header className="bg-white w-full  dark:bg-gray-900">
@@ -34,37 +37,36 @@ function Header() {
                         <div className="hidden md:block">
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-lg">
-                                    <li>
+                                    <li className={`${location.pathname === '/' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
                                         <Link to="/" 
-                                            className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                            // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                             
                                         >
                                             Home
                                         </Link>
                                     </li>
 
-                                    <li>
+                                    <li >
                                         <a
                                             className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
+                                            href="#contact"
                                         >
                                             Contact
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <Link to="/services"
-                                            className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
+                                    <li className={`${location.pathname === '/services' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/services" 
+                                            // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+
                                         >
                                             Services
                                         </Link>
                                     </li>
 
-                                    <li>
+                                    <li className={`${location.pathname === '/barberShop' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
                                         <Link to="/barberShop"
-                                            className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
+                                            // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                         >
                                             BarberShop
                                         </Link>
