@@ -57,7 +57,7 @@ export const loadUser = createAsyncThunk("loadUser", async (_, { rejectWithValue
 
         if (token) {
             console.log("Token enviado en loadUser:", token);
-            const response = await axios.get("https://shift-management-api-a9a2.onrender.com", {
+            const response = await axios.get(`https://shift-management-api-a9a2.onrender.com/email?email=${email}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
