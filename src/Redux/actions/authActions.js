@@ -38,7 +38,7 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
 
         // navigate("/")
         return token;
-    
+
     } catch (error) {
 
         console.log("entro por el catch y este es el error del back", error);
@@ -51,32 +51,62 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
 );
 
 // Load user action
-export const loadUser = createAsyncThunk(
-    'auth/loadUser',
-    async (_, { rejectWithValue }) => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.get(`${API_URL}/me`, {
+export const loadUser = createAsyncThunk("loadUser", async (_, { rejectWithValue }) => {
+    try {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            console.log("Token enviado en loadUser:", token);
+            const response = await axios.get("https://shift-management-api-a9a2.onrender.com", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
+
+            console.log("Respuesta de loadUser:", response);
+            const responseData = response.data;
+            console.log("Datos del usuario:", responseData);
+            // Creamos el objeto usuario a partir de la respuesta de la API
+            let usuario = {
+                email: responseData.email,
+                name: responseData.firstName + " " + responseData.lastName,
+                token: token,  // Aquí el token viene del argumento `token`
+                isLoggedIn: true,
+                rol:responseData.rol,
+                isActive:responseData.isActive
+
+            };
+            console.log("Usuario cargado:", usuario);
+
+            // Retornamos el objeto usuario para almacenarlo en el estado global
+            return usuario;
         }
+    } catch (error) {
+        console.error("Error loading user:", error);
+
+        Swal.fire({
+            title: 'Error Loading User',
+            text: error.response ? error.response.data.message : 'Error loading user',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        });
+
+          // Si el token es inválido o expirado, eliminamos el token de localStorage
+          if (error.response && error.response.status === 401) {
+            localStorage.removeItem('token');  // Eliminamos el token
+        }
+        return rejectWithValue(error.response ? error.response.data : error.message);
     }
+}
 );
 
 // Logout user action
-export const logoutUser = createAsyncThunk(
-    'auth/logoutUser',
-    async (_, { rejectWithValue }) => {
+export const logoutUser = createAsyncThunk("logoutUser", async (_, { rejectWithValue }) => {
         try {
             localStorage.removeItem('token');
-            return true;
+            return ;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return rejectWithValue(error.response ? error.response.data : error.message);
         }
     }
 );

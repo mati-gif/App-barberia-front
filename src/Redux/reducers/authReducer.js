@@ -1,4 +1,5 @@
-import { registerUser } from "../actions/authActions";
+import { createReducer } from "@reduxjs/toolkit";
+import { authenticateUser, loadUser, logoutUser, registerUser } from "../actions/authActions";
 
 const initialState = {
     isLoggedIn: !!localStorage.getItem('token'),
@@ -123,3 +124,6 @@ const authReducer = createReducer(initialState, (builder) => {
             };
         });
 })
+
+
+export default authReducer;
