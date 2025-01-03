@@ -12,6 +12,7 @@ import BonitaSprings from './pages/BonitaSprings'
 import BaytonBeach from './pages/BaytonBeach'
 import CoralWay from './pages/CoralWay'
 import Services from './pages/Services'
+import MyShifts from './pages/MyShifts'
 
 function App() {
 
@@ -38,6 +39,8 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/myShifts" element={<MyShifts />} />
+
 
       </Routes>
     </BrowserRouter>
