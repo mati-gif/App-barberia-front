@@ -1,3 +1,4 @@
+import { registerUser } from "../actions/authActions";
 
 const initialState = {
     isLoggedIn: !!localStorage.getItem('token'),
@@ -68,28 +69,28 @@ const authReducer = createReducer(initialState, (builder) => {
 
         })
 
-                // Para traer al usuario autenticado (current client) Estado cuando la solicitud es exitosa (fulfilled)
-                .addCase(loadUser.fulfilled, (state, action) => {
-                    console.log("Usuario cargado:", action.payload);
-                    const newState = {
-                        ...state, // Mantenemos el estado anterior
-                        isLoggedIn: true,
-                        token: action.payload.token,  // Asignamos el nuevo token
-                        email: action.payload.email,  // Asignamos el email del usuario
-                        name: action.payload.name,    // Asignamos el nombre del usuario
-                        status: "succeeded",          // La solicitud fue exitosa
-                        loading: false,
-                        rol: action.payload.rol,
-                        isActive: action.payload.isActive
-                        // Ya no está cargando
-                    };
-        
-                    console.log("Estado actualizado (fulfilled):", newState)
-        
-                    return newState
-                })
+        // Para traer al usuario autenticado (current client) Estado cuando la solicitud es exitosa (fulfilled)
+        .addCase(loadUser.fulfilled, (state, action) => {
+            console.log("Usuario cargado:", action.payload);
+            const newState = {
+                ...state, // Mantenemos el estado anterior
+                isLoggedIn: true,
+                token: action.payload.token,  // Asignamos el nuevo token
+                email: action.payload.email,  // Asignamos el email del usuario
+                name: action.payload.name,    // Asignamos el nombre del usuario
+                status: "succeeded",          // La solicitud fue exitosa
+                loading: false,
+                rol: action.payload.rol,
+                isActive: action.payload.isActive
+                // Ya no está cargando
+            };
 
-                 // Estado de solicitud de cierre de sesión pendiente (pending)
+            console.log("Estado actualizado (fulfilled):", newState)
+
+            return newState
+        })
+
+        // Estado de solicitud de cierre de sesión pendiente (pending)
         .addCase(logoutUser.pending, (state) => {
             return {
                 ...state,
