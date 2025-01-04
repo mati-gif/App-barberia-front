@@ -33,9 +33,12 @@ function Login() {
             const resultAction = await dispatch(authenticateUser({ email, password })).unwrap();
             console.log("Resultado de login:", resultAction);
 
+        
             // Si la autenticación es exitosa, cargamos el usuario
-            //await dispatch(loadUser(resultAction.email)).unwrap();
-            navigate('/');
+            await dispatch(loadUser(email)).unwrap();
+            console.log(email);
+            
+            navigate('/myShifts');
         }
 
         catch (error) {

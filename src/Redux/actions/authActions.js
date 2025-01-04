@@ -23,11 +23,12 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
         
         const response = await axios.post('/api/Authentication/authenticate', user);
         console.log("Respuesta de login:", response);
+        console.log(user);
 
         const token = response.data;
         console.log("Token recibido:", token);
 
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.data);
         console.log("Token almacenado en localStorage:", localStorage.getItem('token'));  // Verifica que el token se almacena correctamente
 
         // Mostrar alerta de éxito directamente en la acción
@@ -52,14 +53,18 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
 }
 );
 
+
 // Load user action
-export const loadUser = createAsyncThunk("loadUser", async (_, { rejectWithValue }) => {
+export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem('token');
 
         if (token) {
             console.log("Token enviado en loadUser:", token);
-            const response = await axios.get(`https://shift-management-api-6ade.onrender.com/email?email=${email}`, {
+
+            const url = `https://shift-management-api-6ade.onrender.com/email?email=${encodeURIComponent(email)}`;
+            console.log("URL generada para loadUser:", url);
+            const response = await axios.get( url, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -71,11 +76,12 @@ export const loadUser = createAsyncThunk("loadUser", async (_, { rejectWithValue
             // Creamos el objeto usuario a partir de la respuesta de la API
             let usuario = {
                 email: responseData.email,
-                name: responseData.firstName + " " + responseData.lastName,
+                name: `${responseData.firstName} ${responseData.lastName}`,
                 token: token,  // Aquí el token viene del argumento `token`
                 isLoggedIn: true,
                 rol:responseData.rol,
-                isActive:responseData.isActive
+                isActive:responseData.isActive,
+                password: responseData.password,
 
             };
             console.log("Usuario cargado:", usuario);
