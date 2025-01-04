@@ -12,24 +12,43 @@ function MyShifts() {
     const [email, setEmail] = useState('');
 
     const { status, isLoggedIn, error, token, name } = useSelector((state) => state.authenticateUser);
-
+    // const { shifts } = useSelector((state) => state.shiftReducer);
+    // console.log(shifts);
+    
     console.log(status, isLoggedIn, error, token, name);
 
 
+    // useEffect(() => {
+
+
+    //     if (isLoggedIn && token || name == null) {
+
+    //         dispatch(loadUser(email))
+    //             .unwrap().then((user) => {
+    //                 dispatch(fetchShifts())
+    //             }).catch((error) => {
+    //                 console.error('Error loading user:', error);
+    //                 navigate('/login');
+    //             });
+
+    //     } else {
+
+    //         // Redirigir al usuario si no está autenticado
+    //         navigate('/login');
+
+    //     }
+
+    // });
+
+
+
+    
     useEffect(() => {
 
-
         if (isLoggedIn && token || name == null) {
-            // solicitarDatosCuenta();
-            console.log(accounts);
-            // setArrayAccount(accounts);
-            dispatch(loadUser(email))
-                .unwrap().then((user) => {
-                    dispatch(fetchShifts())
-                }).catch((error) => {
-                    console.error('Error loading user:', error);
-                    navigate('/login');
-                });
+
+                    // dispatch(fetchShifts())
+
 
         } else {
 
@@ -39,6 +58,8 @@ function MyShifts() {
         }
 
     });
+
+
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/login');
