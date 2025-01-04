@@ -3,12 +3,12 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 // Define the base URL for the API
-const API_URL = 'https://shift-management-api-a9a2.onrender.com';
+const API_URL = 'https://shift-management-api-6ade.onrender.com';
 
 // Register user action
 export const registerUser = createAsyncThunk('registerUser', async (userData, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`${API_URL}/api/User`, userData);
+        const response = await axios.post('/api/User', userData);
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response.data);
@@ -19,7 +19,9 @@ export const registerUser = createAsyncThunk('registerUser', async (userData, { 
 // Authenticate user action( no tengo un endPoint que traiga al cliente autenticado)
 export const authenticateUser = createAsyncThunk('authenticateUser', async (user, { rejectWithValue }) => {
     try {
-        const response = await axios.post('https://shift-management-api-a9a2.onrender.com/api/Authentication/authenticate', user);
+        console.log(user);
+        
+        const response = await axios.post('/api/Authentication/authenticate', user);
         console.log("Respuesta de login:", response);
 
         const token = response.data;
@@ -57,7 +59,7 @@ export const loadUser = createAsyncThunk("loadUser", async (_, { rejectWithValue
 
         if (token) {
             console.log("Token enviado en loadUser:", token);
-            const response = await axios.get(`https://shift-management-api-a9a2.onrender.com/email?email=${email}`, {
+            const response = await axios.get(`https://shift-management-api-6ade.onrender.com/email?email=${email}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

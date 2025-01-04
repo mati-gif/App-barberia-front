@@ -14,7 +14,6 @@ function Login() {
     const [errors, setErrors] = useState({});
     const { status, isLoggedIn, error, token } = useSelector((state) => state.authenticateUser);
     console.log(status, isLoggedIn, error);
-    console.log(token);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,7 +34,7 @@ function Login() {
             console.log("Resultado de login:", resultAction);
 
             // Si la autenticación es exitosa, cargamos el usuario
-            await dispatch(loadUser(resultAction.token)).unwrap();
+            //await dispatch(loadUser(resultAction.email)).unwrap();
             navigate('/');
         }
 
