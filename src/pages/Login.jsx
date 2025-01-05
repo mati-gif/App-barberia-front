@@ -12,8 +12,9 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
-    const { status, isLoggedIn, error, token } = useSelector((state) => state.authenticateUser);
+    const { status, isLoggedIn, error, token , name} = useSelector((state) => state.authenticateUser);
     console.log(status, isLoggedIn, error);
+    console.log(name);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -95,7 +96,7 @@ function Login() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className="flex items-center justify-between">
+                        {/* <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <input
                                     className="mr-2 w-4 h-4"
@@ -108,7 +109,7 @@ function Login() {
                             <a className="text-blue-500 font-medium hover:underline" href="#"
                             >Forgot Password</a
                             >
-                        </div>
+                        </div> */}
                         <button
                             className="w-full justify-center py-1 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2"
                             id="login"

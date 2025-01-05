@@ -79,7 +79,7 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
                 name: `${responseData.firstName} ${responseData.lastName}`,
                 token: token,  // Aquí el token viene del argumento `token`
                 isLoggedIn: true,
-                rol:responseData.rol,
+                role:responseData.role,
                 isActive:responseData.isActive,
                 password: responseData.password,
 

@@ -25,6 +25,8 @@ export const fetchShifts = createAsyncThunk('fetchShifts', async (_, { rejectWit
         });
         console.log(response.data);
 
+        console.log(response);
+        
         return response.data; // Devuelve la lista de cuentas
     }
     catch(error){

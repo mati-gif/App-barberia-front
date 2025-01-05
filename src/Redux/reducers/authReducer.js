@@ -9,7 +9,7 @@ const initialState = {
     status: 'idle', // Estado inicial de la solicitud
     loading: false,
     error: null,
-    rol: {},
+    role: " ",
     isActive: false,
 }
 
@@ -81,10 +81,13 @@ const authReducer = createReducer(initialState, (builder) => {
                 name: action.payload.name,    // Asignamos el nombre del usuario
                 status: "succeeded",          // La solicitud fue exitosa
                 loading: false,
-                rol: action.payload.rol,
+                role: action.payload.role,
                 isActive: action.payload.isActive
                 // Ya no está cargando
             };
+
+            // Guarda el email en el almacenamiento local
+            localStorage.setItem('email', action.payload.email);
 
             console.log("Estado actualizado (fulfilled):", newState)
 
@@ -109,7 +112,7 @@ const authReducer = createReducer(initialState, (builder) => {
                 token: null,
                 email: null,
                 name: null,
-                rol: {},
+                role: "",
                 status: "succeeded",
                 loading: false,
             };
