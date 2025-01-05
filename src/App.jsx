@@ -30,6 +30,7 @@ function App() {
           <Route path="/BoytonBeach" element={<BaytonBeach/>} />
           <Route path="/CoralWay" element={<CoralWay/>} />
           <Route path="/services" element={<Services/>} />
+          <Route path="/myShifts" element={<MyShifts />} />
 
 
 
@@ -39,7 +40,6 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/myShifts" element={<MyShifts />} />
 
 
       </Routes>

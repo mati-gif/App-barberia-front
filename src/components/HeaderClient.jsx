@@ -1,12 +1,44 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from "../assets/logo.png";
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+import { logoutUser } from '../Redux/actions/authActions';
 function HeaderClient() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+        const location = useLocation();
+    
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+
+
+    const handleLogout = async () => {
+
+        try {
+
+            await dispatch(logoutUser());
+
+            Swal.fire({
+                title: 'Logged Out',
+                text: 'You have been logged out successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                navigate('/'); // Redirige al usuario al login después de cerrar sesión
+            });
+        } catch (error) {
+            Swal.fire({
+                title: 'Logout Failed',
+                text: 'There was a problem logging out. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
     };
     return (
         <>
@@ -34,8 +66,8 @@ function HeaderClient() {
                         <div className="hidden md:block">
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-lg">
-                                    <li className={`${location.pathname === '/' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
-                                        <Link to="/"
+                                    <li className={`${location.pathname === '/myShifts' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/myShifts"
                                         // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
 
                                         >
@@ -66,12 +98,13 @@ function HeaderClient() {
 
                         <div className="flex items-center gap-4">
                             <div className="hidden sm:flex sm:gap-4">
-                                <Link to="/login"
+                                <button
                                     className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                    href="#"
+                                    type='button'
+                                    onClick={handleLogout}
                                 >
                                     Log out
-                                </Link>
+                                </button>
                             </div>
 
                             <div className="block md:hidden">

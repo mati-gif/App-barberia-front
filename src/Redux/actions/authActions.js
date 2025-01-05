@@ -8,7 +8,12 @@ const API_URL = 'https://shift-management-api-6ade.onrender.com';
 // Register user action
 export const registerUser = createAsyncThunk('registerUser', async (userData, { rejectWithValue }) => {
     try {
-        const response = await axios.post('/api/User', userData);
+        console.log(userData);
+        
+        const response = await axios.post('https://shift-management-api-6ade.onrender.com/create-user', userData);
+        console.log("Respuesta de registro:", response);
+        console.log(response.data);
+        
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response.data);
@@ -112,6 +117,7 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
 export const logoutUser = createAsyncThunk("logoutUser", async (_, { rejectWithValue }) => {
         try {
             localStorage.removeItem('token');
+            localStorage.removeItem('email');
             return ;
         } catch (error) {
             return rejectWithValue(error.response ? error.response.data : error.message);

@@ -1,14 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from "../assets/logo.png";
 import { X } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Register() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const errorMessage = useSelector((state) => state.authenticateUser);
+
+console.log(errorMessage);
+
   return (
     <>
                 <div className='bg-[url(https://studio-dbrickell.com/wp-content/uploads/2022/12/shutterstock_1128837791-scaled.jpg)] bg-cover bg-center bg-no-repeat  border-4 border-red-500  h-screen flex flex-col justify-center items-center'>
                 <div
-                    class=" w-[30%] rounded-lg shadow-xl h-[75%] p-6 bg-white relative overflow-hidden"
+                    class=" min-w-[30%] rounded-lg shadow-xl h-[75%] p-6 bg-white relative overflow-hidden"
                 >
                     {/* <div class="flex flex-col justify-center items-center space-y-2">
                     <h2 class="text-2xl font-medium text-slate-700">Login</h2>
@@ -64,7 +78,7 @@ function Register() {
                             class="w-full justify-center py-1 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 rounded-md text-white ring-2"
                             id="Register"
                             name="Register"
-                            type="submit"
+                            type="button"
                         >
                             Register
                         </button>
