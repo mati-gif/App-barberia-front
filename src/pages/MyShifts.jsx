@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { loadUser } from '../Redux/actions/authActions';
 import { use } from 'react';
 import { fetchShifts } from '../Redux/actions/shiftActions';
+import ShiftsCard from '../components/ShiftsCard';
 
 function MyShifts() {
 
