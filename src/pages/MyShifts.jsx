@@ -21,29 +21,23 @@ function MyShifts() {
     console.log(email);
 
 
-    useEffect(() => {
+useEffect(() => {
+    if (isLoggedIn && token && email) {
+        console.log("entro al if de isLoggedIn y token");
 
+        dispatch(loadUser(email))
+            .unwrap().then((user) => {
+                console.log("entro al then de loadUser");
+                dispatch(fetchShifts())
+            }).catch((error) => {
+                console.error('Error loading user:', error);
+                navigate('/login');
+            });
 
-        if (isLoggedIn && token && email) {
-            console.log("entro al if de isLoggedIn y token");
-
-            dispatch(loadUser(email))
-                .unwrap().then((user) => {
-                    console.log("entro al then de loadUser");
-                    dispatch(fetchShifts())
-                }).catch((error) => {
-                    console.error('Error loading user:', error);
-                    navigate('/login');
-                });
-
-        } else {
-
-            // Redirigir al usuario si no está autenticado
-            navigate('/login');
-
-        }
-
-    }, [email, isLoggedIn, navigate, dispatch]);
+    } else {
+        navigate('/login');
+    }
+}, [email, isLoggedIn, navigate, dispatch, token]);
 
 
 

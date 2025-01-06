@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 import MobileEfect from '../components/MobileEfect';
 import CiudadBanner from '../components/CiudadBanner';
 import Maps from '../components/Maps';
+import { useSelector } from 'react-redux';
 function Home() {
     useEffect(() => {
         AOS.init();
@@ -28,6 +29,12 @@ function Home() {
             image: "https://b541f621df59ce97c38c.cdn6.editmysite.com/uploads/b/b541f621df59ce97c38c6ecd7adfd9863682cc048c4c023b16cdcb59c9efd8d3/WhatsApp%20Image%202024-09-28%20at%207.44.29%20PM_1728536306.jpeg?width=2400&optimize=medium",
         }
     ]
+
+    const {  token } = useSelector((state) => state.authenticateUser);
+
+
+    console.log(token);
+    
     return (
         <>
             <div className='border-4 border-red-500  min-h-[550vh] '>
