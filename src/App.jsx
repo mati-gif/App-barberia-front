@@ -13,6 +13,7 @@ import BaytonBeach from './pages/BaytonBeach'
 import CoralWay from './pages/CoralWay'
 import Services from './pages/Services'
 import MyShifts from './pages/MyShifts'
+import CreateShift from './pages/CreateShift'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/CoralWay" element={<CoralWay/>} />
           <Route path="/services" element={<Services/>} />
           <Route path="/myShifts" element={<MyShifts />} />
+          <Route path="/createShift" element={<CreateShift />} />
 
 
 

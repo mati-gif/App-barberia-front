@@ -9,7 +9,7 @@ const initialState = {
     status: 'idle', // Estado inicial de la solicitud
     loading: false,
     error: null,
-    role: " ",
+    role: null,
     isActive: false,
 }
 
@@ -48,6 +48,8 @@ const authReducer = createReducer(initialState, (builder) => {
         //Para autenticar al usuario (Es decir cuando se loguea )
         .addCase(authenticateUser.fulfilled, (state, action) => {
             console.log("Autenticación exitosa, token:", action.payload);
+            console.log(state);
+            
             return {
                 ...state,
                 isLoggedIn: true,
@@ -55,6 +57,7 @@ const authReducer = createReducer(initialState, (builder) => {
                 status: "succeeded",
                 loading: false,
             };
+
         })
 
         .addCase(authenticateUser.rejected, (state, action) => {

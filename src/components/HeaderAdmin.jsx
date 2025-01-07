@@ -56,7 +56,7 @@ function HeaderAdmin() {
                         <div className="hidden md:block">
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-lg">
-                                    <li className={`${location.pathname === '/myShifts' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                    <li className={`${location.pathname === '/createShift' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
                                         <Link to="/createShift"
                                         // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
 

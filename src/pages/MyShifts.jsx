@@ -12,15 +12,20 @@ function MyShifts() {
     const dispatch = useDispatch();
     // const [email, setEmail] = useState('');
 
-    const { status, isLoggedIn, error, token, name } = useSelector((state) => state.authenticateUser);
+    const { status, isLoggedIn, error, token, name,role } = useSelector((state) => state.authenticateUser);
     const { shifts } = useSelector((state) => state.shiftReducer);
     console.log(shifts);
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
 
-    console.log(status, isLoggedIn, error, token, name);
+    console.log(status, isLoggedIn, error, token, name,role);
     console.log(email);
 
+useEffect(()=>{
 
+    if(role === "Admin"){
+        navigate("/CreateShift")
+    }
+},[role])
 useEffect(() => {
     if (isLoggedIn && token && email) {
         console.log("entro al if de isLoggedIn y token");
@@ -37,7 +42,7 @@ useEffect(() => {
     } else {
         navigate('/login');
     }
-}, [email, isLoggedIn, navigate, dispatch, token]);
+}, [email, isLoggedIn, navigate, dispatch, token,role]);
 
 
 

@@ -1,20 +1,75 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { loadUser } from '../Redux/actions/authActions';
 
 function CreateShift() {
     const navigate = useNavigate(); // Declara useNavigate
     const dispatch = useDispatch();
     // const [email, setEmail] = useState('');
 
-    const { status, isLoggedIn, error, token, name } = useSelector((state) => state.authenticateUser);
+    const { status, isLoggedIn, error, token, name,role } = useSelector((state) => state.authenticateUser);
     const { shifts } = useSelector((state) => state.shiftReducer);
     console.log(shifts);
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
 
     console.log(status, isLoggedIn, error, token, name);
     console.log(email);
+    console.log(role);
+
+    useEffect(()=>{
+        if(role == null || role == undefined || role === "Client"){
+            navigate("/myShifts")
+        }
+    },[role])
+
+    useEffect(() => {
+        if (isLoggedIn && token && email) {
+            console.log("entro al if de isLoggedIn y token");
+    
+            dispatch(loadUser(email))
+                .unwrap().then((user) => {
+                    console.log("entro al then de loadUser");
+                    // dispatch(fetchShifts())
+                }).catch((error) => {
+                    console.error('Error loading user:', error);
+                    navigate('/login');
+                });
+    
+        } else {
+            navigate('/login');
+        }
+    }, [email, isLoggedIn, navigate, dispatch, token,role]);
+    
+    
+    
+    
+        // useEffect(() => {
+    
+        //     // if (isLoggedIn && token ) {
+    
+        //     //             dispatch(fetchShifts())
+    
+    
+        //     // } else {
+    
+        //     //     // Redirigir al usuario si no está autenticado
+        //     //     navigate('/login');
+    
+        //     // }
+    
+        // }),[name];
+    
+    
+        useEffect(() => {
+            if (!isLoggedIn) {
+                navigate('/login');
+            }
+    
+    
+        });
   return (
+
     <>
     <div className='border-4 border-yellow-500  min-h-[100vh] '>
         <h1 className="text-3xl font-bold text-center mb-8">Welcome, {name}!</h1>

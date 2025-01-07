@@ -32,7 +32,8 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
 
         const token = response.data;
         console.log("Token recibido:", token);
-
+        console.log(response.data.role);
+        
         localStorage.setItem('token', response.data);
         console.log("Token almacenado en localStorage:", localStorage.getItem('token'));  // Verifica que el token se almacena correctamente
 
@@ -77,6 +78,8 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
 
             console.log("Respuesta de loadUser:", response);
             const responseData = response.data;
+            console.log(responseData.role);
+            
             console.log("Datos del usuario:", responseData);
             // Creamos el objeto usuario a partir de la respuesta de la API
             let usuario = {

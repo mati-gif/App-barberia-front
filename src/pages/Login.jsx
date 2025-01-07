@@ -1,12 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticateUser, loadUser } from '../Redux/actions/authActions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importa los iconos
-
+import { use } from 'react';
 
 function Login() {
     const dispatch = useDispatch();
@@ -16,10 +16,19 @@ function Login() {
     const [errors, setErrors] = useState({});
     const [passwordVisible, setPasswordVisible] = useState(false);
     const { status, isLoggedIn, error, token, name } = useSelector((state) => state.authenticateUser);
+    const [roles,setRoles] = useState("")
     console.log(status, isLoggedIn, error);
     console.log(name);
     console.log(token);
 
+    const auth = useSelector((state) => state.authenticateUser)
+    const role = useSelector((state) => state.authenticateUser.role)
+    console.log(role);
+    console.log(auth);
+
+    
+
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
@@ -39,11 +48,38 @@ function Login() {
             console.log("Resultado de login:", resultAction);
                 
 
+
+
+            
+            
             // Si la autenticación es exitosa, cargamos el usuario
             await dispatch(loadUser(email)).unwrap();
             console.log(email);
+            console.log(auth.role);
+            console.log(role);
+            
+            
 
-            navigate('/myShifts');
+            
+            if(auth?.role === "Client"  || auth.role == "" || auth.role === undefined ){
+                navigate('/myShifts');
+                console.log("entro por lo que ve el usuario cuando se loguea");
+                
+            }else if ( auth.role === "Admin"|| auth.role == null){
+                navigate('/createShift');
+                console.log("entro por lo que ve el admin cuando se loguea");
+                
+
+            } else{
+                console.log("no debe entrar en ninguno de los ifs");
+                
+            }
+            // if(roles === "Admin"){
+            //     navigate("/createShift")
+            // } else if (roles === "Client"){
+            //     navigate("/myShifts")
+            //     return;
+            // }
         }
 
         catch (error) {
@@ -57,6 +93,14 @@ function Login() {
         }
 
     };
+
+    useEffect(()=>{
+
+        console.log(role);
+        
+        setRoles(role)
+        
+    })
 
     return (
 
