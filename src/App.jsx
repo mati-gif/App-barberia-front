@@ -14,6 +14,7 @@ import CoralWay from './pages/CoralWay'
 import Services from './pages/Services'
 import MyShifts from './pages/MyShifts'
 import CreateShift from './pages/CreateShift'
+import CreateBarberShop from './pages/CreateBarberShop'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/services" element={<Services/>} />
           <Route path="/myShifts" element={<MyShifts />} />
           <Route path="/createShift" element={<CreateShift />} />
+          <Route path="/createBarberShop" element={<CreateBarberShop/>} />
 
 
 

@@ -73,8 +73,8 @@ function HeaderAdmin() {
                                         </Link>
                                     </li>
 
-                                    <li className={`${location.pathname === '/services' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
-                                        <Link to=""
+                                    <li className={`${location.pathname === '/createBarberShop' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/createBarberShop"
                                         // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
 
                                         >
