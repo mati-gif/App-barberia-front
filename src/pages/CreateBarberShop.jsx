@@ -5,7 +5,7 @@ function CreateBarberShop() {
         <div className='border-4 border-blue-500  min-h-[100vh] '>
             <div className='border-2 border-[#e78] h-[100px] flex justify-end items-start'>
                 <button className='p-2 bg-[#48e] rounded-lg mt-[5px] border-2 border-[#48e] text-white hover:bg-[#49e]'>
-                    BarberShop Created
+                    BarberShops Created
                 </button>
             </div>
             <h2 className="text-3xl font-bold text-center mb-8">Complete the form to create a new BarberShop</h2>

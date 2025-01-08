@@ -6,6 +6,7 @@ const store = configureStore({
     reducer: {
         authenticateUser: authReducer,
         shiftReducer: shiftReducer,
+        barberShopReducer:barberShopReducer,
     },
 });
 
