@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createBarberShop } from '../Redux/actions/barberShopActions';
 import Swal from 'sweetalert2';
 
@@ -94,9 +94,11 @@ function CreateBarberShop() {
     return (
         <div className='border-4 border-blue-500  min-h-[100vh] '>
             <div className='border-2 border-[#e78] h-[100px] flex justify-end items-start'>
+                <Link to="/created-barberShops">
                 <button className='p-2 bg-[#48e] rounded-lg mt-[5px] border-2 border-[#48e] text-white hover:bg-[#49e]'>
                     BarberShops Created
                 </button>
+                </Link>
             </div>
             <h2 className="text-3xl font-bold text-center mb-8">Complete the form to create a new BarberShop</h2>
 

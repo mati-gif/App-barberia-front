@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { createBarberShop } from "../actions/barberShopActions";
+import { createBarberShop, fetchBarberShop } from "../actions/barberShopActions";
 
 
 const initialState = {
@@ -59,6 +59,23 @@ const barberShopReducer = createReducer(initialState, (builder) =>{
                 status: "failed",
                 loading: false,
                 error: action.payload || 'Error creating account',
+            };
+        })
+
+        .addCase(fetchBarberShop.pending,(state)=>{
+            return{
+                ...state,
+                status:"pending",
+                loading:true,
+                error:null
+            }
+        })
+        .addCase(fetchBarberShop.fulfilled,(state,action)=>{
+            return {
+                ...state,
+                status: "succeeded",
+                loading: false,
+                barberShops: action.payload,  // Añade la nueva cuenta a la lista
             };
         })
 })

@@ -8,15 +8,15 @@ import Swal from 'sweetalert2'; // Importa SweetAlert2
 const API_URL = 'https://shift-management-api-6ade.onrender.com';
 
 // Acción asincrónica para crear un préstamo
-export const createBarberShop = createAsyncThunk( 'createBarberShop',
+export const createBarberShop = createAsyncThunk('createBarberShop',
     async (barberShopData, { rejectWithValue }) => {
 
-    console.log(barberShopData);
-            
+        console.log(barberShopData);
+
         try {
 
             console.log(barberShopData);
-            
+
             const token = localStorage.getItem('token');
 
             const response = await axios.post(`${API_URL}/api/BarberShop`, barberShopData, {
@@ -54,3 +54,36 @@ export const createBarberShop = createAsyncThunk( 'createBarberShop',
         }
     }
 );
+
+export const fetchBarberShop = createAsyncThunk("fetchBarberShop", async (_, { rejectWithValue }) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        console.log("token not found");
+
+    }
+
+    try {
+
+        console.log(fetchBarberShop);
+        
+        const response = await axios.get(`${API_URL}/api/BarberShop`, {
+
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        console.log(response);
+
+        console.log(response.data);
+        
+        return response.data;
+
+    }
+    catch (error) {
+
+        return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+
+
+})
