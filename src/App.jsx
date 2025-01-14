@@ -16,6 +16,9 @@ import MyShifts from './pages/MyShifts'
 import CreateShift from './pages/CreateShift'
 import CreateBarberShop from './pages/CreateBarberShop'
 import ViewBarberShopsCreated from './pages/ViewBarberShopsCreated'
+import CreateServices from './pages/CreateServices'
+import ViewServicesCreated from './pages/ViewServicesCreated'
+import BookNow from './pages/BookNow'
 
 function App() {
 
@@ -37,6 +40,10 @@ function App() {
           <Route path="/createShift" element={<CreateShift />} />
           <Route path="/createBarberShop" element={<CreateBarberShop/>} />
           <Route path="/created-barberShops" element={<ViewBarberShopsCreated/>} />
+          <Route path="/createServices" element={<CreateServices/>} />
+          <Route path="/created-services" element={<ViewServicesCreated/>} />
+          <Route path="/bookNow" element={<BookNow/>} />
+
 
 
 

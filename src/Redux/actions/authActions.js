@@ -107,6 +107,8 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
             confirmButtonText: 'Ok'
         });
 
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
           // Si el token es inválido o expirado, eliminamos el token de localStorage
           if (error.response && error.response.status === 401) {
             localStorage.removeItem('token');  // Eliminamos el token

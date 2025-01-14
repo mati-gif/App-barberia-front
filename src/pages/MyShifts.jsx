@@ -12,37 +12,38 @@ function MyShifts() {
     const dispatch = useDispatch();
     // const [email, setEmail] = useState('');
 
-    const { status, isLoggedIn, error, token, name,role } = useSelector((state) => state.authenticateUser);
+    const { status, isLoggedIn, error, token, name, role } = useSelector((state) => state.authenticateUser);
     const { shifts } = useSelector((state) => state.shiftReducer);
     console.log(shifts);
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
 
-    console.log(status, isLoggedIn, error, token, name,role);
+    console.log(status, isLoggedIn, error, token, name, role);
     console.log(email);
 
-useEffect(()=>{
+    // useEffect(() => {
 
-    if(role === "Admin"){
-        navigate("/CreateShift")
-    }
-},[role])
-useEffect(() => {
-    if (isLoggedIn && token && email) {
-        console.log("entro al if de isLoggedIn y token");
+    //     if (role === "Admin") {
+    //         navigate("/CreateShift")
+    //     }
+    // }, [role])
 
-        dispatch(loadUser(email))
-            .unwrap().then((user) => {
-                console.log("entro al then de loadUser");
-                dispatch(fetchShifts())
-            }).catch((error) => {
-                console.error('Error loading user:', error);
-                navigate('/login');
-            });
+    useEffect(() => {
+        if (isLoggedIn && token && email) {
+            console.log("entro al if de isLoggedIn y token");
 
-    } else {
-        navigate('/login');
-    }
-}, [email, isLoggedIn, navigate, dispatch, token,role]);
+            dispatch(loadUser(email))
+                .unwrap().then((user) => {
+                    console.log("entro al then de loadUser");
+                    dispatch(fetchShifts())
+                }).catch((error) => {
+                    console.error('Error loading user:', error);
+                    navigate('/login');
+                });
+
+        } else {
+            navigate('/login');
+        }
+    }, [email, isLoggedIn, navigate, dispatch, token, role]);
 
 
 
@@ -80,7 +81,7 @@ useEffect(() => {
                     {shifts && shifts.length > 0 ? (
                         shifts.map((shift) => (
 
-                         <ShiftsCard day={shift.day} time={shift.time} service={shift.service} price={shift.price} />   
+                            <ShiftsCard day={shift.day} time={shift.time} service={shift.service} price={shift.price} />
 
                         ))
                     ) : (

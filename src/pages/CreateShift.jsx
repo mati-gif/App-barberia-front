@@ -17,11 +17,11 @@ function CreateShift() {
     console.log(email);
     console.log(role);
 
-    useEffect(()=>{
-        if(role == null || role == undefined || role === "Client"){
-            navigate("/myShifts")
-        }
-    },[role])
+    // useEffect(()=>{
+    //     if(role == null || role == undefined || role === "Client"){
+    //         navigate("/myShifts")
+    //     }
+    // },[role])
 
     useEffect(() => {
         if (isLoggedIn && token && email) {

@@ -1,16 +1,70 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from "../assets/logo.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser, logoutUser } from '../Redux/actions/authActions';
+import Swal from 'sweetalert2';
 
 function Header() {
+    const role = useSelector((state) => state.authenticateUser.role)
+    const isLoggedIn = useSelector((state) => state.authenticateUser)
+    const email = useSelector((state) => state.authenticateUser.email)
+    console.log(isLoggedIn);
+
+    console.log(role);
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(true); // Estado para manejar el estado de carga
+
+
+    useEffect(() => {
+        const localStorageEmail = localStorage.getItem('email');
+        if (localStorageEmail) {
+            dispatch(loadUser(localStorageEmail))
+                .then(() => setIsLoading(false)) // Cambia a falso cuando la carga es exitosa
+                .catch(() => setIsLoading(false)); // Cambia a falso incluso si hay un error
+        } else {
+            setIsLoading(false);
+        }
+    }, [dispatch]);
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    
+    const handleLogout = async () => {
+
+        try {
+
+            await dispatch(logoutUser());
+
+            Swal.fire({
+                title: 'Logged Out',
+                text: 'You have been logged out successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                navigate('/'); // Redirige al usuario al login después de cerrar sesión
+            });
+        } catch (error) {
+            Swal.fire({
+                title: 'Logout Failed',
+                text: 'There was a problem logging out. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+    };
+
     const location = useLocation();
+
+    if (isLoading) {
+        // Renderiza un loader o un componente de carga mientras se espera que los datos del usuario estén disponibles
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
             <header className="bg-white w-full  dark:bg-gray-900">
@@ -38,14 +92,13 @@ function Header() {
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-lg">
                                     <li className={`${location.pathname === '/' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
-                                        <Link to="/" 
-                                            // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            
+                                        <Link to="/"
+                                        // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+
                                         >
                                             Home
                                         </Link>
                                     </li>
-
                                     <li >
                                         <a
                                             className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
@@ -56,8 +109,8 @@ function Header() {
                                     </li>
 
                                     <li className={`${location.pathname === '/services' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
-                                        <Link to="/services" 
-                                            // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        <Link to="/services"
+                                        // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
 
                                         >
                                             Services
@@ -66,35 +119,107 @@ function Header() {
 
                                     <li className={`${location.pathname === '/barberShop' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
                                         <Link to="/barberShop"
-                                            // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                        // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                         >
                                             BarberShop
                                         </Link>
                                     </li>
 
 
+
+
+                                    {role === "Admin" &&
+                                        <>
+                                            <li className={`${location.pathname === '/createShift' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/createShift"
+                                                // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+
+                                                >
+                                                    Create Shift
+                                                </Link>
+                                            </li>
+
+                                            <li className={`${location.pathname === '/createServices' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/createServices"
+                                                    className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                                >
+                                                    Create Services
+                                                </Link>
+                                            </li>
+
+                                            <li className={`${location.pathname === '/createBarberShop' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/createBarberShop"
+                                                // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+
+                                                >
+                                                    Create BarberShop
+                                                </Link>
+                                            </li>
+                                        </>
+
+                                    }
+
+                                    {role === "Client" && 
+<>
+  <li className={`${location.pathname === '/myShifts' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/myShifts"
+                                        // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+
+                                        >
+                                            My Shifts
+                                        </Link>
+                                    </li>
+
+
+
+                                    <li className={`${location.pathname === '/bookNow' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/bookNow"
+                                        // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+
+                                        >
+                                            Book Now
+                                        </Link>
+                                    </li>
+                                    </>
+}
                                 </ul>
                             </nav>
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <div className="hidden sm:flex sm:gap-4">
-                                <Link to="/login"
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                    href="#"
-                                >
-                                    Login
-                                </Link>
+                            {isLoggedIn.isLoggedIn === true ?
 
-                                <div className="hidden sm:flex">
-                                    <Link to="/register"
-                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                                <div className="hidden sm:flex sm:gap-4">
+                                    <button
+                                        className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
+                                        type='button'
+                                        onClick={handleLogout}
+                                    >
+                                        Log out
+                                    </button>
+                                </div>
+                                :
+                                <div className="hidden sm:flex sm:gap-4">
+
+                                    <Link to="/login"
+                                        className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
                                         href="#"
                                     >
-                                        Register
+                                        Login
                                     </Link>
+
+                                    <div className="hidden sm:flex">
+                                        <Link to="/register"
+                                            className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                                            href="#"
+                                        >
+                                            Register
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
+
+                            }
+
 
                             <div className="block md:hidden">
                                 <button

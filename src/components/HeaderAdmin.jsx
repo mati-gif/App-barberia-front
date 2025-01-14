@@ -65,8 +65,8 @@ function HeaderAdmin() {
                                         </Link>
                                     </li>
 
-                                    <li >
-                                        <Link
+                                    <li className={`${location.pathname === '/createServices' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/createServices"
                                             className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                         >
                                             Create Services
@@ -86,15 +86,7 @@ function HeaderAdmin() {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <div className="hidden sm:flex sm:gap-4">
-                                <button
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                    type='button'
-                                    onClick={handleLogout}
-                                >
-                                    Log out
-                                </button>
-                            </div>
+
 
                             <div className="block md:hidden">
                                 <button

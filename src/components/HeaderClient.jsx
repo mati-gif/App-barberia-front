@@ -17,29 +17,7 @@ function HeaderClient() {
 
 
 
-    const handleLogout = async () => {
-
-        try {
-
-            await dispatch(logoutUser());
-
-            Swal.fire({
-                title: 'Logged Out',
-                text: 'You have been logged out successfully.',
-                icon: 'success',
-                confirmButtonText: 'OK',
-            }).then(() => {
-                navigate('/'); // Redirige al usuario al login después de cerrar sesión
-            });
-        } catch (error) {
-            Swal.fire({
-                title: 'Logout Failed',
-                text: 'There was a problem logging out. Please try again.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-        }
-    };
+    
     return (
         <>
             <header className="bg-white w-full  dark:bg-gray-900">
@@ -84,8 +62,8 @@ function HeaderClient() {
                                         </a>
                                     </li>
 
-                                    <li className={`${location.pathname === '/services' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
-                                        <Link to="/services"
+                                    <li className={`${location.pathname === '/bookNow' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/bookNow"
                                         // className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
 
                                         >
@@ -97,15 +75,7 @@ function HeaderClient() {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <div className="hidden sm:flex sm:gap-4">
-                                <button
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                    type='button'
-                                    onClick={handleLogout}
-                                >
-                                    Log out
-                                </button>
-                            </div>
+
 
                             <div className="block md:hidden">
                                 <button

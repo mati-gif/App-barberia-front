@@ -57,23 +57,25 @@ function Login() {
             console.log(email);
             console.log(auth.role);
             console.log(role);
-            
-            
+            navigate('/');
+            setRoles(role)
 
             
-            if(auth?.role === "Client"  || auth.role == "" || auth.role === undefined ){
-                navigate('/myShifts');
-                console.log("entro por lo que ve el usuario cuando se loguea");
+            // if(auth?.role === "Client"  || auth.role == "" || auth.role === undefined ){
+            //     navigate('/myShifts');
+            //     console.log("entro por lo que ve el usuario cuando se loguea");
                 
-            }else if ( auth.role === "Admin"|| auth.role == null){
-                navigate('/createShift');
-                console.log("entro por lo que ve el admin cuando se loguea");
+            // }
+            // else if ( auth?.role === "Admin"|| auth.role == null){
+            //     navigate('/createShift');
+            //     console.log("entro por lo que ve el admin cuando se loguea");
                 
 
-            } else{
-                console.log("no debe entrar en ninguno de los ifs");
+            // } 
+            // else{
+            //     console.log("no debe entrar en ninguno de los ifs");
                 
-            }
+            // }
             // if(roles === "Admin"){
             //     navigate("/createShift")
             // } else if (roles === "Client"){
@@ -94,14 +96,19 @@ function Login() {
 
     };
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        console.log(role);
+    //     console.log(role);
         
-        setRoles(role)
+    //     setRoles(role)
         
-    })
+    // })
 
+    // useEffect(()=>{
+
+   
+        
+    // },[role])
     return (
 
         <div
