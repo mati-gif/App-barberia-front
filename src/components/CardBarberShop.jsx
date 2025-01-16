@@ -7,7 +7,7 @@ function CardBarberShop(props) {
 
 
             <div
-                className="service-card w-[100%]  shadow-2xl rounded-lg cursor-pointer snap-start shrink-0 py-8 px-6 bg-white flex flex-col items-start gap-3 transition-all duration-300 group hover:bg-[#202127]"
+                className=" w-[100%]  shadow-2xl rounded-lg cursor-pointer  py-8 px-6 bg-white flex flex-col items-start  gap-3 transition-all duration-300 group hover:bg-[#202127]"
             >
 
                 <div className="text-xl font-bold  group-hover:text-white text-black/80"> Name BarberShop:</div>
@@ -18,7 +18,9 @@ function CardBarberShop(props) {
                 <p className="text-gray-400 text-2xl">
                 {props.address}
                 </p>
-                <p className="text-lg text-gray-400 mb-1">City: </p>
+                <div className='flex flex-wrap'>
+                <p className="text-lg text-gray-400 mb-1 ">City: </p>
+                </div>
                 <p
 
                     className="text-5xl font-bold self-start group-hover:text-white text-black/80"

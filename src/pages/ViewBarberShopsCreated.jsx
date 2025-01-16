@@ -43,12 +43,12 @@ function ViewBarberShopsCreated() {
     return (
         <div className='bg-[#e8e8e8] border-4 border-blue-500  min-h-[100vh] '>
             <h2 className="text-3xl font-bold text-center mb-8">All BarberShops</h2>
-            <div className="flex justify-center items-center min-h-screen">
+            <div className="flex justify-center items-center min-h-screen flex-wrap">
             {
                 
                 barberShops.map((item)=>(
                     <>
-                    <div className='border-2 border-[#f55] flex m-[10px] flex-wrap justify-center items-center '>
+                    <div className='w-[45%] border-2 border-[#f55] flex m-[10px] h-[40%] justify-center items-center '>
                     <CardBarberShop key={item.id} premiseName={item.premiseName} address={item.address} city={item.city}/>
                     </div>
                     </>
