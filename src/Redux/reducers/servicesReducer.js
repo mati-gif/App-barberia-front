@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { createServices, fetchServices } from "../actions/servicesActions";
+import { createServices, fetchServices, updatePrice } from "../actions/servicesActions";
 
 const initialState = {
     status: 'idle', // Estado inicial de la solicitud
@@ -77,6 +77,37 @@ const servicesReducer = createReducer(initialState, (builder) => {
                 services: action.payload,  // Añade la nueva cuenta a la lista
             };
         })
+
+        .addCase(updatePrice.pending, (state) => {
+            return {
+                ...state,
+                status: "pending",
+                loading: true,
+                error: null
+            }
+        })
+
+        .addCase(updatePrice.fulfilled, (state, action) => {//state:El estado actual del reducer y action: La acción que contiene el payload con los datos enviados desde la acción updatePrice.
+            const { id, price } = action.payload; // Desestructurar payload para claridad
+            console.log({id,price});
+            
+            const index = state.services.findIndex((service) => service.id === id);
+        console.log(index);
+        
+            if (index !== -1) {
+                // Actualizamos solo el precio del servicio
+                state.services[index] = {
+                    ...state.services[index], // Mantiene el resto de las propiedades
+                    price, // Actualiza el precio
+                };
+            } else {
+                console.error(`Service with ID ${id} not found in state.services.`);
+            }
+        
+            state.status = "succeeded";
+            state.loading = false;
+        });
+        
 
 })
 

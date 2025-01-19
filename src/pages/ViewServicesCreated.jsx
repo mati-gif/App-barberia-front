@@ -2,22 +2,23 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchServices } from '../Redux/actions/servicesActions';
+import CardServices from '../components/CardServices';
 
 function ViewServicesCreated() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { premiseName, city, address, status, error, loading } = useSelector((state) => state.servicesReducer)
-    console.log(premiseName);
-    console.log(city);
-    console.log(address);
-    console.log(status);
-    console.log(error);
-    console.log(loading);
+    // const { premiseName, city, address, status, error, loading } = useSelector((state) => state.servicesReducer)
+    // console.log(premiseName);
+    // console.log(city);
+    // console.log(address);
+    // console.log(status);
+    // console.log(error);
+    // console.log(loading);
 
-    const {barberShops} =  useSelector((state) => state.servicesReducer)
-    console.log(barberShops);
+    const {services} =  useSelector((state) => state.servicesReducer)
+    console.log(services);
 
 
     const { isLoggedIn, token } = useSelector((state) => state.authenticateUser);
@@ -42,9 +43,15 @@ function ViewServicesCreated() {
 
         <div className='bg-[#e8e8e8] border-4 border-blue-500  min-h-[100vh] '>
             <h2 className="text-3xl font-bold text-center mb-8">All Services</h2>
-            <div className="flex justify-center items-center min-h-screen">
+            <div className="flex justify-center items-center min-h-screen flex-wrap">
                 {
-
+                    services.map((item,index) =>(
+                        
+                        <div key={item.id} className='w-[25%] border-2 border-[#f55] flex m-[10px] flex-wrap h-[40%] justify-center items-center '>
+                        <CardServices id={item.id} name={item.name} price={item.price} category={item.category}/>
+                        </div>
+                        
+                    ))
 
 
                 }

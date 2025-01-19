@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { Navigate, useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'; // Importa SweetAlert2
 
 const API_URL = 'https://shift-management-api-6ade.onrender.com';
-
 
 // Acción asincrónica para crear un préstamo
 export const createServices = createAsyncThunk('createServices',
@@ -65,7 +65,7 @@ export const fetchServices = createAsyncThunk("fetchServices", async (_, { rejec
     try {
 
         console.log(fetchServices);
-        
+
         const response = await axios.get(`${API_URL}/api/Service`, {
 
             headers: {
@@ -75,7 +75,7 @@ export const fetchServices = createAsyncThunk("fetchServices", async (_, { rejec
         console.log(response);
 
         console.log(response.data);
-        
+
         return response.data;
 
     }
@@ -84,5 +84,46 @@ export const fetchServices = createAsyncThunk("fetchServices", async (_, { rejec
         return rejectWithValue(error.response ? error.response.data : error.message);
     }
 
+
+})
+
+export const updatePrice = createAsyncThunk("updatePrice", async ({ id, newPrice }, { rejectWithValue }) => {
+
+    try {
+
+        
+        console.log({id,newPrice});
+        
+        const token = localStorage.getItem("token");
+        console.log(token);
+        const url = `https://shift-management-api-6ade.onrender.com/api/Service/edit?id=${id}&price=${newPrice}`
+        console.log("URL generada para updatePrice:", url);
+
+       const response =  await axios.put(url, null, {  // El segundo argumento es el cuerpo (null en este caso)
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log(response);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'The price was updated sussesfully',
+            text: `The price was updated to ${newPrice}.`,
+        });
+        const responseData = response.data;
+        console.log(responseData);
+
+        return { id, price: newPrice }
+
+    }
+    catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al actualizar el precio',
+            text: error.response.data,
+        });
+        return rejectWithValue(error.response.data);
+    }
 
 })
