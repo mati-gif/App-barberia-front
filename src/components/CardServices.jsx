@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchServices, updatePrice } from '../Redux/actions/servicesActions';
+import { deleteServices, fetchServices, updatePrice } from '../Redux/actions/servicesActions';
+import Swal from 'sweetalert2';
 
 function CardServices(props) {
     const dispatch = useDispatch();
 
     const { services } = useSelector((item) => item.servicesReducer)
     console.log(services);
-    const { isLoggedIn, token } = useSelector((state) => state.authenticateUser);
+    const { isLoggedIn, token,role,loading } = useSelector((state) => state.authenticateUser);
     console.log(isLoggedIn);
     console.log(token);
     // const { id } = useParams(); // Obtén el id de la URL
@@ -23,6 +24,18 @@ function CardServices(props) {
         setNewPrice(value)
 
     }
+
+    useEffect(() => {
+        console.log("se ejecuto este useEffect");
+
+        // setNewPrice(newPrice)
+        // console.log(services.price);
+
+      
+
+
+
+    }, [dispatch, newPrice,services])
     const handleEdit = (id) => {
 
         console.log("se hizo clic en la funcion");
@@ -54,17 +67,37 @@ function CardServices(props) {
             });
         }
     };
-    
 
-    
-    useEffect(() => {
-        console.log("se ejecuto este useEffect");
+    const handleDelete = (id) => {
+        console.log("funciona la funcion para eliminar ");
+
+        if(role === "Admin"){
+            dispatch(deleteServices(id)).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'The services was delete sussesfully',
+                    text: `The services was delete ${services.id} .`,
+                });
+
+            navigate("/created-services")
+
+            })
+            
+            .catch((error) => console.error("Error deteleting services:", error))
+        }
+       
         
-        // setNewPrice(newPrice)
-        // console.log(services.price);
-        
-        
-    }, [dispatch,newPrice])
+    }
+
+
+
+
+
+   
+
+// if (loading) {
+//   return <div>Loading...</div>;
+// }
     return (
         <>
 
@@ -118,6 +151,7 @@ function CardServices(props) {
                             </button>
                             <button
                                 className="mt-2 inline-block w-full rounded-lg bg-red-500 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-red-700 sm:mt-0 sm:w-auto"
+                                onClick={() => handleDelete(props.id)}
                             >
                                 Delete
                             </button>

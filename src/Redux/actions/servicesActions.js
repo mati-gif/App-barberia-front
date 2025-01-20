@@ -31,6 +31,7 @@ export const createServices = createAsyncThunk('createServices',
                 title: 'services created successfully',
                 text: `Your services has been created successfully.`,
             });
+            // Navigate("/created-services")
             console.log(response.data);
 
             return response.data;
@@ -91,15 +92,15 @@ export const updatePrice = createAsyncThunk("updatePrice", async ({ id, newPrice
 
     try {
 
-        
-        console.log({id,newPrice});
-        
+
+        console.log({ id, newPrice });
+
         const token = localStorage.getItem("token");
         console.log(token);
         const url = `https://shift-management-api-6ade.onrender.com/api/Service/edit?id=${id}&price=${newPrice}`
         console.log("URL generada para updatePrice:", url);
 
-       const response =  await axios.put(url, null, {  // El segundo argumento es el cuerpo (null en este caso)
+        const response = await axios.put(url, null, {  // El segundo argumento es el cuerpo (null en este caso)
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -126,4 +127,43 @@ export const updatePrice = createAsyncThunk("updatePrice", async ({ id, newPrice
         return rejectWithValue(error.response.data);
     }
 
+})
+
+
+export const deleteServices = createAsyncThunk("deleteServices", async (id, { rejectWithValue }) => {
+
+    try {
+        const token = localStorage.getItem("token")
+        console.log(token);
+        const url = `https://shift-management-api-6ade.onrender.com/api/Service/${id}`
+        console.log("URL generada para updatePrice:", url);
+        const response = await axios.delete(url, {
+            headers:
+            {
+                Authorization: `Bearer ${token}`
+            },
+        })
+        console.log(response);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'The services was delete sussesfully',
+            text: `The services was delete to .`,
+        });
+
+        const responseData = response.data;
+        console.log(responseData);
+
+        return responseData
+
+
+    }
+    catch (error){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error to delete services',
+            text: error.response.data,
+        });
+        return rejectWithValue(error.response.data);
+    }
 })
