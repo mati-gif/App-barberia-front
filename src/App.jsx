@@ -19,6 +19,7 @@ import ViewBarberShopsCreated from './pages/ViewBarberShopsCreated'
 import CreateServices from './pages/CreateServices'
 import ViewServicesCreated from './pages/ViewServicesCreated'
 import BookNow from './pages/BookNow'
+import ViewShiftsCreated from './pages/ViewShiftsCreated'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/created-barberShops" element={<ViewBarberShopsCreated/>} />
           <Route path="/createServices" element={<CreateServices/>} />
           <Route path="/created-services" element={<ViewServicesCreated/>} />
+          <Route path='/created-shifts' element={<ViewShiftsCreated/>}/>
           <Route path="/bookNow" element={<BookNow/>} />
 
 

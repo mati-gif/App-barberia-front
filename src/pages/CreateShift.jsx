@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loadUser } from '../Redux/actions/authActions';
+import { fetchShifts } from '../Redux/actions/shiftActions';
 
 function CreateShift() {
     const navigate = useNavigate(); // Declara useNavigate
@@ -30,7 +31,7 @@ function CreateShift() {
             dispatch(loadUser(email))
                 .unwrap().then((user) => {
                     console.log("entro al then de loadUser");
-                    // dispatch(fetchShifts())
+                    dispatch(fetchShifts())
                 }).catch((error) => {
                     console.error('Error loading user:', error);
                     navigate('/login');
@@ -72,7 +73,15 @@ function CreateShift() {
 
     <>
     <div className='border-4 border-yellow-500  min-h-[100vh] '>
+        <div className='border-2 border-[#e78] h-[100px] flex justify-end items-start'>
+                <Link to="/created-shifts">
+                <button className='p-2 bg-[#48e] rounded-lg mt-[5px] border-2 border-[#48e] text-white hover:bg-[#49e]'>
+                    Shifts Created
+                </button>
+                </Link>
+            </div>
         <h1 className="text-3xl font-bold text-center mb-8">Welcome, {name}!</h1>
+
         {/* <div className="flex justify-center flex-wrap gap-10">
             {shifts && shifts.length > 0 ? (
                 shifts.map((shift) => (

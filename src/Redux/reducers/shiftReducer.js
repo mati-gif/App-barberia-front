@@ -5,7 +5,7 @@ import { fetchShifts } from "../actions/shiftActions";
 
 const initialState = {
 
-    shifts: {
+    shifts: [{
         user: {
             email: '',
             name: '',
@@ -22,20 +22,21 @@ const initialState = {
         barberId: null,
         barberShop: " ",
         barberShopId: null,
-        services: {
+        services: [{
             id: "",
             name: "",
             price: 0,
             isActive: true,
             category: "",
-        },
+        }],
         day: null,
         ShiftTime: " ",
-        status: 'idle', // Estado inicial de la solicitud
-        loading: false,
-        error: null,
 
-    }
+
+    }],
+    status: 'idle', // Estado inicial de la solicitud
+    loading: false,
+    error: null,
 }
 
 const shiftReducer = createReducer(initialState, (builder) => {
@@ -51,8 +52,11 @@ const shiftReducer = createReducer(initialState, (builder) => {
         })
 
         .addCase(fetchShifts.fulfilled, (state, action) => {
+            console.log(action.payload);
+            
             return {
                 ...state,
+                status: "succeeded",
                 loading: false,
                 error: null,
                 shifts: action.payload,
