@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { authenticateUser, loadUser, logoutUser, registerUser } from "../actions/authActions";
+import { authenticateUser,  fetchClientByAdmin,  loadUser, logoutUser, registerUser } from "../actions/authActions";
 
 const initialState = {
     isLoggedIn: !!localStorage.getItem('token'),
@@ -11,6 +11,7 @@ const initialState = {
     error: null,
     role: null,
     isActive: false,
+    clients: []
 }
 
 const authReducer = createReducer(initialState, (builder) => {
@@ -96,6 +97,29 @@ const authReducer = createReducer(initialState, (builder) => {
 
             return newState
         })
+
+        .addCase(fetchClientByAdmin.pending ,(state) =>{
+
+            return {
+                ...state,
+                status: "pending",
+                loading: true,
+                error: null
+            }
+        })
+
+        .addCase(fetchClientByAdmin.fulfilled, (state,action) => {
+            console.log("Usuarios cargados (LOS CLIENTES QUE TRAE EL ADMIN):", action.payload);
+
+            return {
+                ...state,
+                status: "succeeded",
+                loading: false,
+                clients:action.payload
+            }
+        })
+
+
 
         // Estado de solicitud de cierre de sesión pendiente (pending)
         .addCase(logoutUser.pending, (state) => {

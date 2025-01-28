@@ -9,11 +9,11 @@ const API_URL = 'https://shift-management-api-6ade.onrender.com';
 export const registerUser = createAsyncThunk('registerUser', async (userData, { rejectWithValue }) => {
     try {
         console.log(userData);
-        
+
         const response = await axios.post('https://shift-management-api-6ade.onrender.com/create-user', userData);
         console.log("Respuesta de registro:", response);
         console.log(response.data);
-        
+
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response);
@@ -25,7 +25,7 @@ export const registerUser = createAsyncThunk('registerUser', async (userData, { 
 export const authenticateUser = createAsyncThunk('authenticateUser', async (user, { rejectWithValue }) => {
     try {
         console.log(user);
-        
+
         const response = await axios.post('/api/Authentication/authenticate', user);
         console.log("Respuesta de login:", response);
         console.log(user);
@@ -33,7 +33,7 @@ export const authenticateUser = createAsyncThunk('authenticateUser', async (user
         const token = response.data;
         console.log("Token recibido:", token);
         console.log(response.data.role);
-        
+
         localStorage.setItem('token', response.data);
         console.log("Token almacenado en localStorage:", localStorage.getItem('token'));  // Verifica que el token se almacena correctamente
 
@@ -70,7 +70,7 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
 
             const url = `https://shift-management-api-6ade.onrender.com/email?email=${encodeURIComponent(email)}`;
             console.log("URL generada para loadUser:", url);
-            const response = await axios.get( url, {
+            const response = await axios.get(url, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -79,7 +79,7 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
             console.log("Respuesta de loadUser:", response);
             const responseData = response.data;
             console.log(responseData.role);
-            
+
             console.log("Datos del usuario:", responseData);
             // Creamos el objeto usuario a partir de la respuesta de la API
             let usuario = {
@@ -87,8 +87,8 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
                 name: `${responseData.firstName} ${responseData.lastName}`,
                 token: token,  // Aquí el token viene del argumento `token`
                 isLoggedIn: true,
-                role:responseData.role,
-                isActive:responseData.isActive,
+                role: responseData.role,
+                isActive: responseData.isActive,
                 password: responseData.password,
 
             };
@@ -109,8 +109,8 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
 
         localStorage.removeItem('token');
         localStorage.removeItem('email');
-          // Si el token es inválido o expirado, eliminamos el token de localStorage
-          if (error.response && error.response.status === 401) {
+        // Si el token es inválido o expirado, eliminamos el token de localStorage
+        if (error.response && error.response.status === 401) {
             localStorage.removeItem('token');  // Eliminamos el token
         }
         return rejectWithValue(error.response ? error.response.data : error.message);
@@ -118,14 +118,46 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
 }
 );
 
+
+export const fetchClientByAdmin = createAsyncThunk("fetchClientByAdmin", async (_, { rejectWithValue }) => {
+
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        console.log("token not found");
+    }
+
+    try{
+
+        console.log(fetchClientByAdmin);
+        const response = await axios.get(`${API_URL}/api/User`, {
+
+            headers:{
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        
+        console.log(response);
+
+        console.log(response.data);
+
+        return response.data;
+    }
+    catch(error){
+
+        return  rejectWithValue(error.response ? error.response.data : error.message);
+    }
+
+})
+
 // Logout user action
 export const logoutUser = createAsyncThunk("logoutUser", async (_, { rejectWithValue }) => {
-        try {
-            localStorage.removeItem('token');
-            localStorage.removeItem('email');
-            return ;
-        } catch (error) {
-            return rejectWithValue(error.response ? error.response.data : error.message);
-        }
+    try {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        return;
+    } catch (error) {
+        return rejectWithValue(error.response ? error.response.data : error.message);
     }
+}
 );

@@ -8,7 +8,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { loadUser } from '../Redux/actions/authActions';
+import {  fetchClientByAdmin, loadUser } from '../Redux/actions/authActions';
 import { fetchShifts } from '../Redux/actions/shiftActions';
 import { fetchBarberShop } from '../Redux/actions/barberShopActions';
 // import { INITIAL_EVENTS, createEventId } from './event-utils'
@@ -17,10 +17,11 @@ function FullCalendarForGetShifts({ shiftss }) {
     const dispatch = useDispatch();
     // const [email, setEmail] = useState('');
 
-    const { status, isLoggedIn, error, token, name, role } = useSelector((state) => state.authenticateUser);
-    const { shifts,loading } = useSelector((state) => state.shiftReducer);
+    const { status, isLoggedIn, error, token, name, role,loading,clients } = useSelector((state) => state.authenticateUser);
+    const { shifts } = useSelector((state) => state.shiftReducer);
     console.log(shifts);
     console.log(loading);
+    console.log(clients);
     
 
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
@@ -29,17 +30,17 @@ function FullCalendarForGetShifts({ shiftss }) {
     console.log(email);
     console.log(role);
 
-    const {barberShops} =  useSelector((state) => state.barberShopReducer)
+    const { barberShops } = useSelector((state) => state.barberShopReducer)
     console.log(barberShops);
 
 
-    useEffect(() =>{
+    useEffect(() => {
 
         if (isLoggedIn && token) {
             dispatch(fetchBarberShop()).catch((error) => {
-                    console.error('Error loading user:', error);
-                    navigate('/created-barberShops');
-                });
+                console.error('Error loading user:', error);
+                navigate('/created-barberShops');
+            });
 
         } else {
 
@@ -47,7 +48,7 @@ function FullCalendarForGetShifts({ shiftss }) {
             navigate('/login'); // Cambia '/login' por la ruta de tu página de login
         }
     }, [isLoggedIn, dispatch, navigate])
-    
+
     // Transformar los turnos en eventos para el calendario
     // const events = shifts.map((shift) => ({
     //     id: shift.id,
@@ -60,7 +61,7 @@ function FullCalendarForGetShifts({ shiftss }) {
 
     useEffect(() => {
         console.log("ENTRO EN ESTE USEEFFECT");
-        
+
         if (isLoggedIn && token && email && shifts) {
             console.log("entro al if de isLoggedIn y token");
 
@@ -101,9 +102,9 @@ function FullCalendarForGetShifts({ shiftss }) {
     let eventGuid = 0
     let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
 
-//     if (loading) {
-//   return <div>Loading...</div>;
-// }
+    //     if (loading) {
+    //   return <div>Loading...</div>;
+    // }
 
     function createEventId() {
         return String(eventGuid++)
@@ -164,6 +165,16 @@ function FullCalendarForGetShifts({ shiftss }) {
         });
     }
 
+    // useEffect(() => {
+    //     console.log("ENTRO POR EL USEEFFECT PERRI");
+
+
+    //     if (status == 'succeeded' && loading) {
+    //         console.log("ENTRO POR EL USEEFFECT PERRI");
+    //     // dispatch(fetchClientByAdmin());
+            
+    //     }
+    //   }, [dispatch, loading, status]);
 
 
     return (
@@ -242,14 +253,25 @@ function FullCalendarForGetShifts({ shiftss }) {
 
     function renderEventContent(eventInfo) {
         const { clientID, barberShopID, confirmed } = eventInfo.event.extendedProps;
-        
+
         let allBarberShops = barberShops.filter((id) => id.id === barberShopID)
-        let premiseName = allBarberShops.find((item) =>{
+        let premiseName = allBarberShops.find((item) => {
             return item
-       })
+        })
         console.log(allBarberShops);
         console.log(premiseName.premiseName);
+
+        let allClients = clients.filter((id) => id.id    === clientID + 1 )
+        // console.log(clients.name);
         
+        let fullName = allClients.find((item) => {
+
+            return item
+        })
+
+        console.log(`${fullName.firstName + " " + fullName.lastName}`);
+        
+        console.log(allClients);
         
         return (
             <>
@@ -257,8 +279,9 @@ function FullCalendarForGetShifts({ shiftss }) {
                     {/* <b>{eventInfo.timeText}</b> */}
                     <b>{new Date(eventInfo.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</b>
                     <i>{eventInfo.event.title}</i>
-                    {clientID && <div>Cliente: {clientID}</div>}
-                    { barberShopID && <div>Barbería: {premiseName.premiseName}</div>}
+                    <div>Cliente: {clientID ?  `${fullName.firstName + " " + fullName.lastName}` : "Not client confirm"}</div>
+                    <div>Email:{ clientID ? `${fullName.email}` : "Not email found"}</div>
+                    {barberShopID && <div>Barbería: {premiseName.premiseName}</div>}
                     <div>Estado: {confirmed ? 'Confirmado' : 'No confirmado'}</div>
                 </div>
             </>
