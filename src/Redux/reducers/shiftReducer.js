@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { fetchShifts } from "../actions/shiftActions";
+import { createShifts, deleteShift, fetchShifts } from "../actions/shiftActions";
 
 
 
@@ -34,6 +34,7 @@ const initialState = {
 
 
     }],
+    shiftCreated:[],
     status: 'idle', // Estado inicial de la solicitud
     loading: false,
     error: null,
@@ -61,6 +62,52 @@ const shiftReducer = createReducer(initialState, (builder) => {
                 error: null,
                 shifts: action.payload,
             };
+        })
+
+        .addCase(createShifts.pending, (state)=>{
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            }
+        })
+
+        .addCase(createShifts.fulfilled,(state,action)=>{
+
+            console.log("se crea el nuevo turno", action.payload);
+            
+            return {
+                ...state,
+                status: "succeeded",
+                loading: false,
+                shiftCreated:[...state.shiftCreated,action.payload],
+                shifts:[...state.shifts,action.payload]
+                
+            }
+
+        })
+
+        .addCase(deleteShift.pending,(state) =>{
+
+            return{
+                ...state,
+                loading: true,
+                error: null,
+            }
+        })
+
+        .addCase(deleteShift.fulfilled,(state,action) =>{
+                console.log("aca deberia mostrar que se elimino el shift",action.payload);
+                
+            return {
+                ...state,
+                status:"succeeded",
+                loading: false,
+                shifts: state.shifts.filter(shift => String(shift.id) !== String(action.payload.id)),
+
+                
+            }
+            
         })
 })
 

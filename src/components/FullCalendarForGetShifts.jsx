@@ -8,21 +8,22 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import {  fetchClientByAdmin, loadUser } from '../Redux/actions/authActions';
-import { fetchShifts } from '../Redux/actions/shiftActions';
+import { fetchClientByAdmin, loadUser } from '../Redux/actions/authActions';
+import { deleteShift, fetchShifts } from '../Redux/actions/shiftActions';
 import { fetchBarberShop } from '../Redux/actions/barberShopActions';
+import Swal from 'sweetalert2';
 // import { INITIAL_EVENTS, createEventId } from './event-utils'
 function FullCalendarForGetShifts({ shiftss }) {
     const navigate = useNavigate(); // Declara useNavigate
     const dispatch = useDispatch();
     // const [email, setEmail] = useState('');
 
-    const { status, isLoggedIn, error, token, name, role,loading,clients } = useSelector((state) => state.authenticateUser);
+    const { status, isLoggedIn, error, token, name, role, loading, clients } = useSelector((state) => state.authenticateUser);
     const { shifts } = useSelector((state) => state.shiftReducer);
     console.log(shifts);
     console.log(loading);
     console.log(clients);
-    
+
 
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
 
@@ -84,17 +85,22 @@ function FullCalendarForGetShifts({ shiftss }) {
 
 
     const events = shifts
-        // .filter((shift) => shift.confirmed) // Solo shifts confirmados
-        .map((shift) => ({
-            id: shift.id,
-            title: `${shift.services.length > 0 ? shift.services[0].name : 'Sin servicio'} - $${shift.price}`,
-            start: `${shift.day}T${shift.shiftTime}`, // Formato ISO
-            extendedProps: {
-                clientID: shift.clientID,
-                barberShopID: shift.barberShopID,
-                confirmed: shift.confirmed,
-            },
-        }));
+        .map((shift) => {
+            // Calcular el precio total de los servicios
+            const totalPrice = shift.services.reduce((total, service) => total + (service.price || 0), 0);
+
+            return {
+                id: shift.id,
+                title: `${shift.services.length > 0 ? shift.services[0].name : 'Sin servicio'} - $${totalPrice}`,
+                start: `${shift.day}T${shift.shiftTime}`, // Formato ISO
+                extendedProps: {
+                    clientID: shift.clientID,
+                    barberShopID: shift.barberShopID,
+                    confirmed: shift.confirmed,
+                },
+            };
+        });
+
 
     const [weekendsVisible, setWeekendsVisible] = useState(true)
     const [currentEvents, setCurrentEvents] = useState([])
@@ -143,11 +149,33 @@ function FullCalendarForGetShifts({ shiftss }) {
         }
     }
 
-    function handleEventClick(clickInfo) {
-        if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-            clickInfo.event.remove()
-        }
+    function handleEventClick(eventInfo) {
+        const eventId = eventInfo.event.id;
+    
+        dispatch(deleteShift(eventId))
+            .unwrap()
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'The shift was deleted successfully',
+                    text: `The shift was deleted successfully.`,
+                });
+    
+                // Redirigimos después de que el estado ha sido actualizado
+                navigate("/created-shifts");
+                console.log("shifts después de dispatch:", shifts);
+            })
+            
+            .catch((error) => {
+                console.error("Error deleting shift:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error deleting shift',
+                    text: error.message || "An error occurred while deleting the shift.",
+                });
+            });
     }
+    
 
     function handleEvents(eventss) {
 
@@ -172,28 +200,12 @@ function FullCalendarForGetShifts({ shiftss }) {
     //     if (status == 'succeeded' && loading) {
     //         console.log("ENTRO POR EL USEEFFECT PERRI");
     //     // dispatch(fetchClientByAdmin());
-            
+
     //     }
     //   }, [dispatch, loading, status]);
 
 
     return (
-        // <div>
-        //     <FullCalendar
-        //         plugins={[dayGridPlugin]}
-        //         initialView="dayGridMonth"
-        //         // events={events} // Pasar los eventos al calendario
-        //         headerToolbar={{
-        //             left: 'prev,next today',
-        //             center: 'title',
-        //             right: 'dayGridMonth',
-        //         }}
-        //         eventColor="#007BFF" // Color de los eventos
-        //         eventTextColor="#FFFFFF" // Texto blanco para mejor contraste
-        //     />
-
-        // </div>
-
         <div className='demo-app'>
             <Sidebar
                 weekendsVisible={weekendsVisible}
@@ -209,25 +221,27 @@ function FullCalendarForGetShifts({ shiftss }) {
                         }
                         return '';
                     }}
-                    eventColor="#007BFF"
-                    eventTextColor="#FFFFFF"
+                    // eventColor="#007BFF"
+                    // eventTextColor="#FFFFFF"
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     headerToolbar={{
                         left: 'prev,next today',
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     }}
+
                     initialView='dayGridMonth'
                     editable={true}
                     selectable={true}
                     selectMirror={true}
                     dayMaxEvents={true}
                     weekends={weekendsVisible}
+
                     // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                     events={events}
                     select={handleDateSelect}
                     eventContent={renderEventContent} // custom render function
-                    eventClick={handleEventClick}
+                    eventClick={(eventInfo) => { handleEventClick(eventInfo) }}
                     eventsSet={handleEvents} // called after events are initialized/added/changed/removed
                 /* you can update a remote database when these fire:
                 eventAdd={function(){}}
@@ -261,26 +275,26 @@ function FullCalendarForGetShifts({ shiftss }) {
         console.log(allBarberShops);
         console.log(premiseName.premiseName);
 
-        let allClients = clients.filter((id) => id.id    === clientID + 1 )
+        let allClients = clients.filter((id) => id.id === clientID + 1)
         // console.log(clients.name);
-        
+
         let fullName = allClients.find((item) => {
 
             return item
         })
 
         console.log(`${fullName.firstName + " " + fullName.lastName}`);
-        
+
         console.log(allClients);
-        
+
         return (
             <>
                 <div>
                     {/* <b>{eventInfo.timeText}</b> */}
                     <b>{new Date(eventInfo.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</b>
                     <i>{eventInfo.event.title}</i>
-                    <div>Cliente: {clientID ?  `${fullName.firstName + " " + fullName.lastName}` : "Not client confirm"}</div>
-                    <div>Email:{ clientID ? `${fullName.email}` : "Not email found"}</div>
+                    <div>Cliente: {clientID ? `${fullName.firstName + " " + fullName.lastName}` : "Not client confirm"}</div>
+                    <div>Email:{clientID ? `${fullName.email}` : "Not email found"}</div>
                     {barberShopID && <div>Barbería: {premiseName.premiseName}</div>}
                     <div>Estado: {confirmed ? 'Confirmado' : 'No confirmado'}</div>
                 </div>
