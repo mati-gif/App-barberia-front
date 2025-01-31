@@ -78,12 +78,12 @@ function FullCalendarForGetShifts({ shiftss }) {
 
 
 
-    
-    const events = shifts.map((shift) => {
+
+    const events = (shifts || []).map((shift) => {
         const services = Array.isArray(shift.services) ? shift.services : [];
-        
+
         const totalPrice = services.reduce((total, service) => total + (service.price || 0), 0);
-    
+
         return {
             id: shift.id,
             title: `${services.length > 0 ? services[0].name : 'Sin servicio'} - $${totalPrice}`,
@@ -93,13 +93,15 @@ function FullCalendarForGetShifts({ shiftss }) {
                 barberShopID: shift.barberShopID,
                 confirmed: shift.confirmed,
             },
+            servicess: shift.services
         };
     });
-    
-    
 
-        console.log(shifts);
-        
+
+
+
+    console.log(shifts);
+
 
     const [weekendsVisible, setWeekendsVisible] = useState(true)
     const [currentEvents, setCurrentEvents] = useState([])
@@ -107,9 +109,7 @@ function FullCalendarForGetShifts({ shiftss }) {
     let eventGuid = 0
     let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
 
-    //     if (loading) {
-    //   return <div>Loading...</div>;
-    // }
+
 
     function createEventId() {
         return String(eventGuid++)
@@ -131,22 +131,6 @@ function FullCalendarForGetShifts({ shiftss }) {
         setWeekendsVisible(!weekendsVisible)
     }
 
-    // function handleDateSelect(selectInfo) {
-    //     let title = prompt('Please enter a new title for your event')
-    //     let calendarApi = selectInfo.view.calendar
-
-    //     calendarApi.unselect() // clear date selection
-
-    //     if (title) {
-    //         calendarApi.addEvent({
-    //             id: createEventId(),
-    //             title,
-    //             start: selectInfo.startStr,
-    //             end: selectInfo.endStr,
-    //             allDay: selectInfo.allDay
-    //         })
-    //     }
-    // }
 
     function handleEventClick(eventInfo) {
         const eventId = eventInfo.event.id;
@@ -260,8 +244,24 @@ function FullCalendarForGetShifts({ shiftss }) {
 
 
     function renderEventContent(eventInfo) {
-        const { clientID, barberShopID, confirmed } = eventInfo.event.extendedProps;
+        const { clientID, barberShopID, confirmed, servicess } = eventInfo.event.extendedProps;
 
+        console.log(servicess);
+
+
+
+        //   let  allServices = servicess.map((item) => {
+        //         let respuesta = item.isActive
+
+        //         return respuesta
+        //     })
+
+        //     console.log(...allServices);
+
+        // Verifica si los servicios están vacíos o todos son inactivos
+        let allServicesAvailable = servicess && servicess.length > 0 && servicess.some(item => item.isActive === true);
+            console.log(allServicesAvailable);
+            
         let allBarberShops = barberShops.filter((id) => id.id === barberShopID)
         let premiseName = allBarberShops.find((item) => {
             return item
@@ -284,16 +284,30 @@ function FullCalendarForGetShifts({ shiftss }) {
         // console.log(allClients);
 
         return (
-            <>
+            <> 
+            
+            {!allServicesAvailable ? (
+                // Si no hay servicios activos, mostrar mensaje de no disponibilidad
                 <div>
-                    {/* <b>{eventInfo.timeText}</b> */}
+                    <b>{new Date(eventInfo.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</b>
+                    <i>{"Services is not available because was deleted or no confirm someone yet "}</i>
+                    <div>Cliente: "Not client confirm"</div>
+                    <div>Email: {"Not email found"}</div>
+                    {barberShopID && <div>Barbería: {premiseName?.premiseName || "No barber shop found"}</div>}
+                    <div>Estado: {'No confirmado'}</div>
+                </div>
+            ) : (
+                // Si hay servicios activos, mostrar el evento con detalles
+                <div>
                     <b>{new Date(eventInfo.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</b>
                     <i>{eventInfo.event.title}</i>
-                    {<div>Cliente: {clientID ? `${fullName.firstName + " " + fullName.lastName}` : "Not client confirm"}</div>}
-                    <div>Email:{clientID ? `${fullName.email}` : "Not email found"}</div>
-                    {barberShopID && <div>Barbería: {premiseName.premiseName}</div>}
-                    <div>Estado: {confirmed ? 'Confirmado' : 'No confirmado'}</div>
+                    {clientID && <div>Cliente: {`${fullName?.firstName || "Not client confirm"} ${fullName?.lastName || ""}`}</div>}
+                    {clientID && <div>Email: {fullName?.email || "Not email found"}</div>}
+                    {barberShopID && <div>Barbería: {premiseName?.premiseName || "No barber shop found"}</div>}
+                    <div>Estado: {confirmed ? 'Confirmado' : "No confirmado"}</div>
                 </div>
+            )}
+
             </>
         )
     }

@@ -67,28 +67,24 @@ const shiftReducer = createReducer(initialState, (builder) => {
         //         shifts: normalizedShifts,
         //     };
         // })
-
         .addCase(fetchShifts.fulfilled, (state, action) => {
             console.log("Payload recibido:", action.payload);
-            
-            // Verifica si action.payload es un array antes de mapear
+        
             if (!Array.isArray(action.payload)) {
-                console.error("Error: fetchShifts devolvió un valor no esperado:", action.payload);
+                console.error("fetchShifts devolvió un valor no esperado:", action.payload);
                 return {
                     ...state,
                     status: "failed",
                     loading: false,
-                    error: "El payload recibido no es un array"
+                    error: "El payload recibido no es un array",
+                    shifts: [] // 🛠 Asegurar que shifts sea un array incluso si hay error
                 };
             }
         
-            // Normaliza los shifts asegurando que `services` nunca sea null
             const normalizedShifts = action.payload.map(shift => ({
                 ...shift,
                 services: Array.isArray(shift.services) ? shift.services : [] // Normaliza a array si es null
             }));
-        
-            console.log("Shifts normalizados:", normalizedShifts);
         
             return {
                 ...state,
@@ -98,6 +94,7 @@ const shiftReducer = createReducer(initialState, (builder) => {
                 shifts: normalizedShifts,
             };
         })
+        
         
 
         .addCase(createShifts.pending, (state)=>{
