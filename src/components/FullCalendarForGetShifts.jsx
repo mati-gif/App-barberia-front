@@ -50,13 +50,6 @@ function FullCalendarForGetShifts({ shiftss }) {
         }
     }, [isLoggedIn, dispatch, navigate])
 
-    // Transformar los turnos en eventos para el calendario
-    // const events = shifts.map((shift) => ({
-    //     id: shift.id,
-    //     title: `${shift.services[0].name} - $${shift.price}`,
-    //     start: `${shift.day}T${shift.shiftTime}`,
-    // }));
-
 
     //--------------------------------↓↓↓↓↓↓↓↓↓----------------------------------------//
 
@@ -81,26 +74,32 @@ function FullCalendarForGetShifts({ shiftss }) {
     }, [email, isLoggedIn, navigate, dispatch, token, role]);
 
 
+    console.log("Shifts en el componente antes de mapear:", shifts);
 
 
 
-    const events = shifts
-        .map((shift) => {
-            // Calcular el precio total de los servicios
-            const totalPrice = shift.services.reduce((total, service) => total + (service.price || 0), 0);
+    
+    const events = shifts.map((shift) => {
+        const services = Array.isArray(shift.services) ? shift.services : [];
+        
+        const totalPrice = services.reduce((total, service) => total + (service.price || 0), 0);
+    
+        return {
+            id: shift.id,
+            title: `${services.length > 0 ? services[0].name : 'Sin servicio'} - $${totalPrice}`,
+            start: `${shift.day}T${shift.shiftTime}`,
+            extendedProps: {
+                clientID: shift.clientID,
+                barberShopID: shift.barberShopID,
+                confirmed: shift.confirmed,
+            },
+        };
+    });
+    
+    
 
-            return {
-                id: shift.id,
-                title: `${shift.services.length > 0 ? shift.services[0].name : 'Sin servicio'} - $${totalPrice}`,
-                start: `${shift.day}T${shift.shiftTime}`, // Formato ISO
-                extendedProps: {
-                    clientID: shift.clientID,
-                    barberShopID: shift.barberShopID,
-                    confirmed: shift.confirmed,
-                },
-            };
-        });
-
+        console.log(shifts);
+        
 
     const [weekendsVisible, setWeekendsVisible] = useState(true)
     const [currentEvents, setCurrentEvents] = useState([])
@@ -152,7 +151,7 @@ function FullCalendarForGetShifts({ shiftss }) {
     function handleEventClick(eventInfo) {
         const eventId = eventInfo.event.id;
         console.log(eventId);
-        
+
         dispatch(deleteShift(eventId))
             .unwrap()
             .then(() => {
@@ -161,10 +160,10 @@ function FullCalendarForGetShifts({ shiftss }) {
                     title: 'The shift was deleted successfully',
                     text: `The shift was deleted successfully.`,
                 });
-    
+
                 // 🚀 Vuelve a cargar los shifts desde el backend
                 dispatch(fetchShifts());
-    
+
                 console.log("shifts después de dispatch:", shifts);
             })
             .catch((error) => {
@@ -176,13 +175,13 @@ function FullCalendarForGetShifts({ shiftss }) {
                 });
             });
     }
-    
 
-   
-    
+
+
+
 
     console.log(shifts);
-    
+
     function handleEvents(eventss) {
 
         // Verifica si los eventos actuales son diferentes antes de actualizar el estado

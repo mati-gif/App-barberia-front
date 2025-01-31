@@ -10,8 +10,8 @@ function ViewShiftsCreated() {
     const dispatch = useDispatch();
     // const [email, setEmail] = useState('');
 
-    const { status, isLoggedIn, error, token, name,role, loading,clients } = useSelector((state) => state.authenticateUser);
-    const { shifts } = useSelector((state) => state.shiftReducer);
+    const { status, isLoggedIn, error, token, name,role,clients } = useSelector((state) => state.authenticateUser);
+    const { shifts,loading } = useSelector((state) => state.shiftReducer);
     
     console.log(shifts);
     console.log( loading);
@@ -22,6 +22,11 @@ function ViewShiftsCreated() {
     // console.log(status, isLoggedIn, error, token, name);
     // console.log(email);
     // console.log(role);
+
+    // if (loading) {
+    //     return <div>Loading shifts...</div>;
+    // }
+    
 
         useEffect(() => {
             console.log("HOLAAA ENTRO EN EL USEEFECT");

@@ -52,17 +52,53 @@ const shiftReducer = createReducer(initialState, (builder) => {
             }
         })
 
-        .addCase(fetchShifts.fulfilled, (state, action) => {
-            console.log(action.payload);
+        // .addCase(fetchShifts.fulfilled, (state, action) => {
+        //     console.log(action.payload);
             
+        //     const normalizedShifts = action.payload.map(shift => ({
+        //         ...shift,
+        //         services: shift.services || [] // Asegura que services nunca sea null
+        //     }));
+        //     return {
+        //         ...state,
+        //         status: "succeeded",
+        //         loading: false,
+        //         error: null,
+        //         shifts: normalizedShifts,
+        //     };
+        // })
+
+        .addCase(fetchShifts.fulfilled, (state, action) => {
+            console.log("Payload recibido:", action.payload);
+            
+            // Verifica si action.payload es un array antes de mapear
+            if (!Array.isArray(action.payload)) {
+                console.error("Error: fetchShifts devolvió un valor no esperado:", action.payload);
+                return {
+                    ...state,
+                    status: "failed",
+                    loading: false,
+                    error: "El payload recibido no es un array"
+                };
+            }
+        
+            // Normaliza los shifts asegurando que `services` nunca sea null
+            const normalizedShifts = action.payload.map(shift => ({
+                ...shift,
+                services: Array.isArray(shift.services) ? shift.services : [] // Normaliza a array si es null
+            }));
+        
+            console.log("Shifts normalizados:", normalizedShifts);
+        
             return {
                 ...state,
                 status: "succeeded",
                 loading: false,
                 error: null,
-                shifts: action.payload,
+                shifts: normalizedShifts,
             };
         })
+        
 
         .addCase(createShifts.pending, (state)=>{
             return {
@@ -80,7 +116,7 @@ const shiftReducer = createReducer(initialState, (builder) => {
                 ...state,
                 status: "succeeded",
                 loading: false,
-                shiftCreated:[...state.shiftCreated,action.payload],
+                // shiftCreated:[...state.shiftCreated,action.payload],
                 shifts:[...state.shifts,action.payload]
                 
             }
