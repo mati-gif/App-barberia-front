@@ -27,12 +27,12 @@ function FullCalendarForGetShifts({ shiftss }) {
 
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
 
-    console.log(status, isLoggedIn, error, token, name);
-    console.log(email);
-    console.log(role);
+    // console.log(status, isLoggedIn, error, token, name);
+    // console.log(email);
+    // console.log(role);
 
     const { barberShops } = useSelector((state) => state.barberShopReducer)
-    console.log(barberShops);
+    // console.log(barberShops);
 
 
     useEffect(() => {
@@ -132,26 +132,27 @@ function FullCalendarForGetShifts({ shiftss }) {
         setWeekendsVisible(!weekendsVisible)
     }
 
-    function handleDateSelect(selectInfo) {
-        let title = prompt('Please enter a new title for your event')
-        let calendarApi = selectInfo.view.calendar
+    // function handleDateSelect(selectInfo) {
+    //     let title = prompt('Please enter a new title for your event')
+    //     let calendarApi = selectInfo.view.calendar
 
-        calendarApi.unselect() // clear date selection
+    //     calendarApi.unselect() // clear date selection
 
-        if (title) {
-            calendarApi.addEvent({
-                id: createEventId(),
-                title,
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-                allDay: selectInfo.allDay
-            })
-        }
-    }
+    //     if (title) {
+    //         calendarApi.addEvent({
+    //             id: createEventId(),
+    //             title,
+    //             start: selectInfo.startStr,
+    //             end: selectInfo.endStr,
+    //             allDay: selectInfo.allDay
+    //         })
+    //     }
+    // }
 
     function handleEventClick(eventInfo) {
         const eventId = eventInfo.event.id;
-    
+        console.log(eventId);
+        
         dispatch(deleteShift(eventId))
             .unwrap()
             .then(() => {
@@ -161,11 +162,11 @@ function FullCalendarForGetShifts({ shiftss }) {
                     text: `The shift was deleted successfully.`,
                 });
     
-                // Redirigimos después de que el estado ha sido actualizado
-                navigate("/created-shifts");
+                // 🚀 Vuelve a cargar los shifts desde el backend
+                dispatch(fetchShifts());
+    
                 console.log("shifts después de dispatch:", shifts);
             })
-            
             .catch((error) => {
                 console.error("Error deleting shift:", error);
                 Swal.fire({
@@ -177,6 +178,11 @@ function FullCalendarForGetShifts({ shiftss }) {
     }
     
 
+   
+    
+
+    console.log(shifts);
+    
     function handleEvents(eventss) {
 
         // Verifica si los eventos actuales son diferentes antes de actualizar el estado
@@ -185,24 +191,13 @@ function FullCalendarForGetShifts({ shiftss }) {
             const prevIds = prevEvents.map((event) => event.id).join(',');
             const newIds = events.map((event) => event.id).join(',');
 
-            if (prevIds === newIds) {
+            if (JSON.stringify(prevIds) === JSON.stringify(newIds)) {
                 return prevEvents; // No actualices si no hay cambios
             }
 
             return events;
         });
     }
-
-    // useEffect(() => {
-    //     console.log("ENTRO POR EL USEEFFECT PERRI");
-
-
-    //     if (status == 'succeeded' && loading) {
-    //         console.log("ENTRO POR EL USEEFFECT PERRI");
-    //     // dispatch(fetchClientByAdmin());
-
-    //     }
-    //   }, [dispatch, loading, status]);
 
 
     return (
@@ -239,7 +234,7 @@ function FullCalendarForGetShifts({ shiftss }) {
 
                     // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                     events={events}
-                    select={handleDateSelect}
+                    // select={handleDateSelect}
                     eventContent={renderEventContent} // custom render function
                     eventClick={(eventInfo) => { handleEventClick(eventInfo) }}
                     eventsSet={handleEvents} // called after events are initialized/added/changed/removed
@@ -272,8 +267,8 @@ function FullCalendarForGetShifts({ shiftss }) {
         let premiseName = allBarberShops.find((item) => {
             return item
         })
-        console.log(allBarberShops);
-        console.log(premiseName.premiseName);
+        // console.log(allBarberShops);
+        // console.log(premiseName.premiseName);
 
         let allClients = clients.filter((id) => id.id === clientID + 1)
         // console.log(clients.name);
@@ -283,9 +278,11 @@ function FullCalendarForGetShifts({ shiftss }) {
             return item
         })
 
-        console.log(`${fullName.firstName + " " + fullName.lastName}`);
+        // console.log(premiseName?.premiseName || "No encontrado");
+        // console.log(fullName ? `${fullName.firstName} ${fullName.lastName}` : "Cliente no encontrado");
 
-        console.log(allClients);
+
+        // console.log(allClients);
 
         return (
             <>
@@ -293,7 +290,7 @@ function FullCalendarForGetShifts({ shiftss }) {
                     {/* <b>{eventInfo.timeText}</b> */}
                     <b>{new Date(eventInfo.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</b>
                     <i>{eventInfo.event.title}</i>
-                    <div>Cliente: {clientID ? `${fullName.firstName + " " + fullName.lastName}` : "Not client confirm"}</div>
+                    {<div>Cliente: {clientID ? `${fullName.firstName + " " + fullName.lastName}` : "Not client confirm"}</div>}
                     <div>Email:{clientID ? `${fullName.email}` : "Not email found"}</div>
                     {barberShopID && <div>Barbería: {premiseName.premiseName}</div>}
                     <div>Estado: {confirmed ? 'Confirmado' : 'No confirmado'}</div>

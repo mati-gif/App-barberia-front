@@ -98,15 +98,24 @@ const shiftReducer = createReducer(initialState, (builder) => {
 
         .addCase(deleteShift.fulfilled,(state,action) =>{
                 console.log("aca deberia mostrar que se elimino el shift",action.payload);
+                console.log("aca deberia mostrar que se elimino el shift",action.payload.id);
+
+                if (!action.payload?.id) return state; // Previene errores si id es undefined
+                console.log(state);
+
+                
+                
                 
             return {
                 ...state,
                 status:"succeeded",
                 loading: false,
                 shifts: state.shifts.filter(shift => String(shift.id) !== String(action.payload.id)),
+                // shifts:action.payload,
 
                 
             }
+            
             
         })
 })

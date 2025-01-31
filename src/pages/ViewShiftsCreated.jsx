@@ -19,9 +19,9 @@ function ViewShiftsCreated() {
     
     const email = useSelector((state) => state.authenticateUser.email) || localStorage.getItem('email');
 
-    console.log(status, isLoggedIn, error, token, name);
-    console.log(email);
-    console.log(role);
+    // console.log(status, isLoggedIn, error, token, name);
+    // console.log(email);
+    // console.log(role);
 
         useEffect(() => {
             console.log("HOLAAA ENTRO EN EL USEEFECT");

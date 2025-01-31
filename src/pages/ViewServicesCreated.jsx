@@ -22,8 +22,8 @@ function ViewServicesCreated() {
 
 
     const { isLoggedIn, token } = useSelector((state) => state.authenticateUser);
-    console.log(isLoggedIn);
-    console.log(token);
+    // console.log(isLoggedIn);
+    // console.log(token);
 
     useEffect(() => {
 

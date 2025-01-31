@@ -9,7 +9,7 @@ const API_URL = 'https://shift-management-api-6ade.onrender.com';
 export const fetchShifts = createAsyncThunk('fetchShifts', async (_, { rejectWithValue }) => {
 
     const token = localStorage.getItem('token');
-    console.log(token);
+    // console.log(token);
 
     if (!token) {
         return rejectWithValue("No token found");
@@ -39,7 +39,7 @@ export const fetchShifts = createAsyncThunk('fetchShifts', async (_, { rejectWit
 export const createShifts = createAsyncThunk("createShifts", async (shiftData, { rejectWithValue }) => {
 
 
-    console.log(shiftData);
+    // console.log(shiftData);
 
     const token = localStorage.getItem("token")
 
@@ -93,7 +93,7 @@ export const deleteShift = createAsyncThunk("deleteShift", async (id, { rejectWi
     try {
 
         const token = localStorage.getItem("token")
-        const url = `https://shift-management-api-6ade.onrender.com/api/Service/${id}`
+        const url = `https://shift-management-api-6ade.onrender.com/api/Shift/${id}`
         console.log("URL generada para updatePrice:", url);
 
         const response = await axios.delete(url, {
@@ -112,7 +112,14 @@ export const deleteShift = createAsyncThunk("deleteShift", async (id, { rejectWi
         });
 
         // Retorna el id del turno eliminado como payload
+        console.log(id);
+        
         return { id };  // Esto será lo que llega al reducer
+
+        // const responseData = response.data;
+        // console.log(responseData);
+
+        // return responseData
     }
     catch (error) {
 
