@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { createShifts, deleteShift, fetchShifts } from "../actions/shiftActions";
+import {  cancelShiftOfUser, confirmShiftToClient, createShifts, deleteShift, fetchShifts, getShiftsByUser } from "../actions/shiftActions";
 
 
 
@@ -38,6 +38,8 @@ const initialState = {
     status: 'idle', // Estado inicial de la solicitud
     loading: false,
     error: null,
+    getAllShiftsOfUser:[],
+    // confirmShift:[]
 }
 
 const shiftReducer = createReducer(initialState, (builder) => {
@@ -151,6 +153,68 @@ const shiftReducer = createReducer(initialState, (builder) => {
             
             
         })
+
+        .addCase(getShiftsByUser.pending,(state) => {
+
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            }
+        })
+
+        .addCase(getShiftsByUser.fulfilled,(state,action) =>{
+
+            console.log("aca se deberian ver los turnos que confirmo el cliente",action.payload);
+            return{
+                ...state,
+                status: "succeeded",
+                loading: false,
+                getAllShiftsOfUser: action.payload,
+            }
+        })
+
+        .addCase(confirmShiftToClient.pending,(state)=>{
+
+            return{
+                ...state,
+                loading: true,
+                error: null,
+            }
+        })
+
+        .addCase(confirmShiftToClient.fulfilled,(state,action)=>{
+            console.log("aca se deberian ver los turnos confirmados que tiene el cliente ",action.payload);
+
+            return{
+                ...state,
+                status: "succeeded",
+                loading: false,
+                confirmShift:action.payload
+            }
+        })
+
+        .addCase(cancelShiftOfUser.pending,(state)=>{
+
+            return{
+                ...state,
+                status: "pending",
+                loading: true,
+                error: null
+            }
+
+        })
+
+        .addCase(cancelShiftOfUser.fulfilled,(state,action)=>{
+            return{
+                ...state,
+                status:"succeeded",
+                loading: false,
+                getAllShiftsOfUser:action.payload
+            }
+        })
+
+
 })
 
 

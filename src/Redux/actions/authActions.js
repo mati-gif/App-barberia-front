@@ -90,6 +90,7 @@ export const loadUser = createAsyncThunk("loadUser", async (email, { rejectWithV
                 role: responseData.role,
                 isActive: responseData.isActive,
                 password: responseData.password,
+                id:responseData.id
 
             };
             console.log("Usuario cargado:", usuario);

@@ -4,6 +4,7 @@ import { authenticateUser,  fetchClientByAdmin,  loadUser, logoutUser, registerU
 const initialState = {
     isLoggedIn: !!localStorage.getItem('token'),
     token: localStorage.getItem('token') || null,
+    id:null,
     email: null,
     name: [],
     status: 'idle', // Estado inicial de la solicitud
@@ -86,7 +87,8 @@ const authReducer = createReducer(initialState, (builder) => {
                 status: "succeeded",          // La solicitud fue exitosa
                 loading: false,
                 role: action.payload.role,
-                isActive: action.payload.isActive
+                isActive: action.payload.isActive,
+                id:action.payload.id
                 // Ya no está cargando
             };
 
@@ -142,6 +144,7 @@ const authReducer = createReducer(initialState, (builder) => {
                 role: "",
                 status: "succeeded",
                 loading: false,
+                id:null
             };
         })
         // Estado cuando el cierre de sesión falla (rejected)
