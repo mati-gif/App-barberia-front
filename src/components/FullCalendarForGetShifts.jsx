@@ -269,13 +269,17 @@ function FullCalendarForGetShifts({ shiftss }) {
         // console.log(allBarberShops);
         // console.log(premiseName.premiseName);
 
-        let allClients = clients.filter((id) => id.id === clientID + 1)
-        // console.log(clients.name);
+        let allClients = clients.filter((id) => id.id === clientID )
+        console.log(allClients);
+        
 
         let fullName = allClients.find((item) => {
 
             return item
         })
+
+        console.log(fullName);
+        
 
         // console.log(premiseName?.premiseName || "No encontrado");
         // console.log(fullName ? `${fullName.firstName} ${fullName.lastName}` : "Cliente no encontrado");
@@ -301,7 +305,7 @@ function FullCalendarForGetShifts({ shiftss }) {
                 <div>
                     <b>{new Date(eventInfo.event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</b>
                     <i>{eventInfo.event.title}</i>
-                    {clientID && <div>Cliente: {`${fullName?.firstName || "Not client confirm"} ${fullName?.lastName || ""}`}</div>}
+                    {clientID && <div>Cliente: {`${fullName?.firstName } ${fullName?.lastName || ""}`}</div>}
                     {clientID && <div>Email: {fullName?.email || "Not email found"}</div>}
                     {barberShopID && <div>Barbería: {premiseName?.premiseName || "No barber shop found"}</div>}
                     <div>Estado: {confirmed ? 'Confirmado' : "No confirmado"}</div>

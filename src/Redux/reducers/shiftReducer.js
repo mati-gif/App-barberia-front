@@ -39,7 +39,7 @@ const initialState = {
     loading: false,
     error: null,
     getAllShiftsOfUser:[],
-    // confirmShift:[]
+    confirmShift:[]
 }
 
 const shiftReducer = createReducer(initialState, (builder) => {
