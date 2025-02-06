@@ -132,8 +132,8 @@ function CreateShift() {
     return (
 
         <>
-            <div className='border-4 border-yellow-500  min-h-[100vh] '>
-                <div className='border-2 border-[#e78] h-[100px] flex justify-end items-start'>
+            <div className=' min-h-[100vh] '>
+                <div className=' h-[100px] flex justify-end items-start'>
                     <Link to="/created-shifts">
                         <button className='p-2 bg-[#48e] rounded-lg mt-[5px] border-2 border-[#48e] text-white hover:bg-[#49e]'>
                             Shifts Created

@@ -97,7 +97,7 @@ function CardServices(props) {
         <>
 
             <div
-                className="mx-auto border-4 border-[#8aa] w-full rounded-lg  border-stone bg-stone-100 p-4 shadow-lg sm:p-6 lg:p-8"
+                className="mx-auto  w-full rounded-lg  border-stone bg-stone-100 p-4 shadow-lg sm:p-6 lg:p-8"
             >
                 <div className="flex items-center gap-4">
                     <p className="font-medium sm:text-lg text-emerald-600">{props.name}</p>

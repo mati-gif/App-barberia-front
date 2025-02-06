@@ -51,14 +51,14 @@ function ViewServicesCreated() {
   }
     return (
 
-        <div className='bg-[#e8e8e8] border-4 border-blue-500  min-h-[100vh] '>
+        <div className='bg-[#e8e8e8]   min-h-[100vh] '>
             <h2 className="text-3xl font-bold text-center mb-8">All Services</h2>
             <div className="flex justify-center items-center min-h-screen flex-wrap">
                 {Array.isArray(services) && services.length > 0 ? (
                     services.map((item) => (
                         <div
                             key={item.id}
-                            className="w-[25%] border-2 border-[#f55] flex m-[10px] flex-wrap h-[40%] justify-center items-center"
+                            className="w-[25%]  flex m-[10px] flex-wrap h-[40%] justify-center items-center"
                         >
                             <CardServices id={item.id} name={item.name} price={item.price} category={item.category} />
                         </div>
