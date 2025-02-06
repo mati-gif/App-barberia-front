@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authenticateUser, loadUser } from '../Redux/actions/authActions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Importa los iconos
 import { use } from 'react';
+import Swal from 'sweetalert2';
 
 function Login() {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function Login() {
     const [errors, setErrors] = useState({});
     const [passwordVisible, setPasswordVisible] = useState(false);
     const { status, isLoggedIn, error, token, name } = useSelector((state) => state.authenticateUser);
-    const [roles,setRoles] = useState("")
+    const [roles, setRoles] = useState("")
     console.log(status, isLoggedIn, error);
     console.log(name);
     console.log(token);
@@ -26,9 +27,9 @@ function Login() {
     console.log(role);
     console.log(auth);
 
-    
 
-    
+const [errorResponse,setErrorResponse] = useState("")
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
@@ -46,12 +47,8 @@ function Login() {
 
             const resultAction = await dispatch(authenticateUser({ email, password })).unwrap();
             console.log("Resultado de login:", resultAction);
-                
 
 
-
-            
-            
             // Si la autenticación es exitosa, cargamos el usuario
             await dispatch(loadUser(email)).unwrap();
             console.log(email);
@@ -60,34 +57,18 @@ function Login() {
             navigate('/');
             setRoles(role)
 
-            
-            // if(auth?.role === "Client"  || auth.role == "" || auth.role === undefined ){
-            //     navigate('/myShifts');
-            //     console.log("entro por lo que ve el usuario cuando se loguea");
-                
-            // }
-            // else if ( auth?.role === "Admin"|| auth.role == null){
-            //     navigate('/createShift');
-            //     console.log("entro por lo que ve el admin cuando se loguea");
-                
-
-            // } 
-            // else{
-            //     console.log("no debe entrar en ninguno de los ifs");
-                
-            // }
-            // if(roles === "Admin"){
-            //     navigate("/createShift")
-            // } else if (roles === "Client"){
-            //     navigate("/myShifts")
-            //     return;
-            // }
         }
 
         catch (error) {
             console.log("entro en el catch del back en el loadUser", error);
 
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Error al confirmar turno',
+            //     text: error,
+            // });
 
+            setErrorResponse(error)
             const newErrors = {};
 
             console.log("error en la variable newError", newErrors);
@@ -99,15 +80,15 @@ function Login() {
     // useEffect(()=>{
 
     //     console.log(role);
-        
+
     //     setRoles(role)
-        
+
     // })
 
     // useEffect(()=>{
 
-   
-        
+
+
     // },[role])
     return (
 
@@ -140,6 +121,8 @@ function Login() {
                             onChange={handleChange}
                         />
                     </div>
+                    {errorResponse && <p className="text-red-500 text-sm font-bold">Email or password invalid
+                        please try again</p>}
                     <div className='relative'>
                         <input
                             className="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"
@@ -158,6 +141,8 @@ function Login() {
                             {passwordVisible ? <FaEye /> : <FaEyeSlash />}
                         </button>
                     </div>
+                    {errorResponse && <p className="text-red-500 text-sm font-bold">Email or password invalid
+                        please try again</p>}
                     {/* <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <input
