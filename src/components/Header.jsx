@@ -1,132 +1,167 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import logo from "../assets/logo.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser, logoutUser } from '../Redux/actions/authActions';
+import Swal from 'sweetalert2';
 
 function Header() {
+    const role = useSelector((state) => state.authenticateUser.role)
+    const isLoggedIn = useSelector((state) => state.authenticateUser)
+    const email = useSelector((state) => state.authenticateUser.email)
+    console.log(isLoggedIn);
+
+    console.log(role);
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(true); // Estado para manejar el estado de carga
+
+
+    useEffect(() => {
+        const localStorageEmail = localStorage.getItem('email');
+        if (localStorageEmail) {
+            dispatch(loadUser(localStorageEmail))
+                .then(() => setIsLoading(false)) // Cambia a falso cuando la carga es exitosa
+                .catch(() => setIsLoading(false)); // Cambia a falso incluso si hay un error
+        } else {
+            setIsLoading(false);
+        }
+    }, [dispatch]);
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const handleLogout = async () => {
+
+        try {
+
+            await dispatch(logoutUser());
+
+            Swal.fire({
+                title: 'Logged Out',
+                text: 'You have been logged out successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                navigate('/'); // Redirige al usuario al login después de cerrar sesión
+            });
+        } catch (error) {
+            Swal.fire({
+                title: 'Logout Failed',
+                text: 'There was a problem logging out. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+    };
+
+    const location = useLocation();
+
+    if (isLoading) {
+        // Renderiza un loader o un componente de carga mientras se espera que los datos del usuario estén disponibles
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
             <header className="bg-white w-full dark:bg-gray-900">
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
-                        <div className="md:flex md:items-center md:gap-12">
-                            <a className="block text-teal-600 dark:text-teal-600" href="#">
-                                <span className="sr-only">Home</span>
-                                <svg className="h-8" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z"
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </a>
+                        <div className="flex-shrink-0 w-[20%]">
+                            <Link className="block text-teal-600" to="/">
+                                <img src={logo} alt="logo" className="w-[80px]" />
+                            </Link>
                         </div>
 
                         <div className="hidden md:block">
                             <nav aria-label="Global">
-                                <ul className="flex items-center gap-6 text-sm">
+                                <ul className="flex items-center gap-6 text-lg">
+                                    <li className={`${location.pathname === '/' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/">Home</Link>
+                                    </li>
                                     <li>
                                         <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
+                                            className="text-[#000] transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                            href="#contact"
                                         >
-                                            About
+                                            Contact
                                         </a>
+                                    </li>
+                                    <li className={`${location.pathname === '/services' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/services">Services</Link>
+                                    </li>
+                                    <li className={`${location.pathname === '/barberShop' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                        <Link to="/barberShop">BarberShop</Link>
                                     </li>
 
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Careers
-                                        </a>
-                                    </li>
+                                    {role === "Admin" && (
+                                        <>
+                                            <li className={`${location.pathname === '/createShift' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/createShift">Create Shift</Link>
+                                            </li>
+                                            <li className={`${location.pathname === '/createServices' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/createServices">Create Services</Link>
+                                            </li>
+                                            <li className={`${location.pathname === '/createBarberShop' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/createBarberShop">Create BarberShop</Link>
+                                            </li>
+                                        </>
+                                    )}
 
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            History
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Services
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Projects
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Blog
-                                        </a>
-                                    </li>
+                                    {role === "Client" && (
+                                        <>
+                                            <li className={`${location.pathname === '/myShifts' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/myShifts">My Shifts</Link>
+                                            </li>
+                                            <li className={`${location.pathname === '/bookNow' ? 'border-b-2 border-black' : 'text-[#000]'} transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75`}>
+                                                <Link to="/bookNow">Book Now</Link>
+                                            </li>
+                                        </>
+                                    )}
                                 </ul>
                             </nav>
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <div className="sm:flex sm:gap-4">
-                                <a
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                    href="#"
-                                >
-                                    Login
-                                </a>
-
-                                <div className="hidden sm:flex">
-                                    <a
+                            {isLoggedIn.isLoggedIn === true ? (
+                                <div className="hidden sm:flex sm:gap-4">
+                                    <button
+                                        className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
+                                        type="button"
+                                        onClick={handleLogout}
+                                    >
+                                        Log out
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="hidden sm:flex sm:gap-4">
+                                    <Link
+                                        to="/login"
+                                        className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
+                                    >
+                                        Login
+                                    </Link>
+                                    <Link
+                                        to="/register"
                                         className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                                        href="#"
                                     >
                                         Register
-                                    </a>
+                                    </Link>
                                 </div>
-                            </div>
+                            )}
 
+                            {/* Botón para abrir el menú en móviles */}
                             <div className="block md:hidden">
-                        <button
-                            onClick={toggleMenu}
-                            className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="size-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
-                            {/* <div className="block md:hidden">
                                 <button
+                                    onClick={toggleMenu}
                                     className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="size-5"
+                                        className="h-6 w-6"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -135,25 +170,167 @@ function Header() {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                                     </svg>
                                 </button>
-                            </div> */}
-
-
-
-{isMenuOpen && (
-                    <div className="md:hidden">
-                        <nav>
-                            <ul className="flex flex-col space-y-4">
-                                <li><a href="/about" className="hover:text-gray-600">About</a></li>
-                                <li><a href="/services" className="hover:text-gray-600">Services</a></li>
-                                <li><a href="/contact" className="hover:text-gray-600">Contact</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                )}
+                            </div>
                         </div>
                     </div>
                 </div>
             </header>
+
+            {/* Modal responsive para el menú en dispositivos móviles */}
+            {isMenuOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white dark:bg-gray-900 w-11/12 max-w-sm p-6 rounded-lg relative">
+                        {/* Botón para cerrar el modal */}
+                        <button
+                            onClick={toggleMenu}
+                            className="absolute top-2 right-2 text-gray-600 dark:text-white"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+
+                        <nav>
+                            <ul className="flex flex-col space-y-4 text-center">
+                                <li>
+                                    <Link
+                                        to="/"
+                                        onClick={toggleMenu}
+                                        className={`${location.pathname === '/' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li>
+                                    <a
+                                        href="#contact"
+                                        onClick={toggleMenu}
+                                        className="hover:text-gray-500 dark:hover:text-gray-300"
+                                    >
+                                        Contact
+                                    </a>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/services"
+                                        onClick={toggleMenu}
+                                        className={`${location.pathname === '/services' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                    >
+                                        Services
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/barberShop"
+                                        onClick={toggleMenu}
+                                        className={`${location.pathname === '/barberShop' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                    >
+                                        BarberShop
+                                    </Link>
+                                </li>
+
+                                {role === "Admin" && (
+                                    <>
+                                        <li>
+                                            <Link
+                                                to="/createShift"
+                                                onClick={toggleMenu}
+                                                className={`${location.pathname === '/createShift' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                            >
+                                                Create Shift
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/createServices"
+                                                onClick={toggleMenu}
+                                                className={`${location.pathname === '/createServices' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                            >
+                                                Create Services
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/createBarberShop"
+                                                onClick={toggleMenu}
+                                                className={`${location.pathname === '/createBarberShop' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                            >
+                                                Create BarberShop
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+
+                                {role === "Client" && (
+                                    <>
+                                        <li>
+                                            <Link
+                                                to="/myShifts"
+                                                onClick={toggleMenu}
+                                                className={`${location.pathname === '/myShifts' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                            >
+                                                My Shifts
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/bookNow"
+                                                onClick={toggleMenu}
+                                                className={`${location.pathname === '/bookNow' ? 'font-bold' : 'font-normal'} hover:text-gray-500 dark:hover:text-gray-300`}
+                                            >
+                                                Book Now
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+
+                                {/* Opciones de Login/Register o Logout para móviles */}
+                                {isLoggedIn.isLoggedIn === true ? (
+                                    <li>
+                                        <button
+                                            onClick={() => {
+                                                toggleMenu();
+                                                handleLogout();
+                                            }}
+                                            className="w-full rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
+                                        >
+                                            Log out
+                                        </button>
+                                    </li>
+                                ) : (
+                                    <>
+                                        <li>
+                                            <Link
+                                                to="/login"
+                                                onClick={toggleMenu}
+                                                className="w-full block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
+                                            >
+                                                Login
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/register"
+                                                onClick={toggleMenu}
+                                                className="w-full block rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                                            >
+                                                Register
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            )}
         </>
     )
 }
