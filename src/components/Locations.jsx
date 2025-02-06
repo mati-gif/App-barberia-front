@@ -22,7 +22,7 @@ function Locations() {
     ]
     return (
         <>
-            <div className=" border-4 border-[#45a] w-full min-h-[80vh] flex gap-[15px] items-center justify-center">
+            <div className="  w-full min-h-[80vh] flex gap-[15px] items-center justify-center">
 
             { locations.map((location) => (
                 <div class="rounded-lg w-[30%] h-80 bg-gray-200  shadow-lg p-3 flex flex-col gap-1">

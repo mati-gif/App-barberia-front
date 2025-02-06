@@ -3,7 +3,7 @@ import React from 'react'
 function Maps() {
     return (
         <>
-            <div id='contact' className=" border-4 border-[#45a] w-full min-h-[80vh]">
+            <div id='contact' className="  w-full min-h-[80vh]">
                 <h2 className="text-[50px] font-serif font-bold text-center">
                     Where Find Us
                 </h2>

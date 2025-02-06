@@ -192,7 +192,7 @@ export const confirmShiftToClient =
                 // Construir la URL con los params requeridos
                 const url = `${API_URL}/api/Shift/confirm?shiftId=${shiftId}&clientId=${clientId}&payshift=true`;
 
-                const response = await axios.post(url,
+                const response = await axios.post(url
                     [servicesId],
                     {
                         headers: { Authorization: `Bearer ${token}` },

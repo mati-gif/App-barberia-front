@@ -8,7 +8,7 @@ function Services() {
     }, []);
     return (
         <>
-            <div className="border-4 border-red-500  min-h-[600vh]">
+            <div className="  min-h-[600vh]">
                 <section
                     className=" relative bg-[url(https://thespotbarbershop.com/wp-content/uploads/2024/07/httpsthespotbarbershop.comservices-5-2.jpeg)] bg-cover bg-center bg-no-repeat"
                 >
@@ -19,7 +19,7 @@ function Services() {
                     <div
                         className="border-2 border-green-200  flex flex-col items-baseline justify-center relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                     >
-                        <div className="flex flex-col justify-end border-2 border-[#48e] h-[100%] max-w-4xl text-center ltr:sm:text-left rtl:sm:text-right">
+                        <div className="flex flex-col justify-end  h-[100%] max-w-4xl text-center ltr:sm:text-left rtl:sm:text-right">
                             <h1 className="text-5xl font-bold text-[#C57C15] sm:text-5xl">
                                 AN EXPERIENCE LIKE NO OTHER
 

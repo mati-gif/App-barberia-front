@@ -3,7 +3,7 @@ import React from 'react'
 function BonitaSprings() {
     return (
         <>
-            <div className="border-4 border-red-500  min-h-[300vh]">
+            <div className=" min-h-[300vh]">
                 <section
                     className=" relative bg-[url(https://thespotbarbershop.com/wp-content/uploads/2016/11/Miracle.jpg)] bg-cover bg-center bg-no-repeat"
                 >
@@ -12,9 +12,9 @@ function BonitaSprings() {
                     ></div>
 
                     <div
-                        className="border-2 border-green-200  flex flex-col items-baseline justify-center relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
+                        className=" flex flex-col items-baseline justify-center relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                     >
-                        <div className="flex flex-col justify-end border-2 border-[#48e] h-[100%] max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
+                        <div className="flex flex-col justify-end  h-[100%] max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                             <h1 className="text-5xl font-bold text-[#fff] sm:text-5xl">
                                 Bonita Springs
 
@@ -28,8 +28,8 @@ function BonitaSprings() {
                         </h2>
                     </div>
                 </section>
-                <div className='border-2 border-[#48e] w-full gap-[30px] min-h-[100vh] flex justify-center items-center'>
-                    <div className='flex flex-col gap-4 border-2 border-[#87e] min-h-[100%] w-[35%]'>
+                <div className=' w-full gap-[30px] min-h-[100vh] flex justify-center items-center'>
+                    <div className='flex flex-col gap-4  min-h-[100%] w-[35%]'>
                         <h2 className='text-[#545454] text-[30px] font-bold '>
                             BARBERSHOP - BONITA SPRINGS
                         </h2>
@@ -76,7 +76,7 @@ function BonitaSprings() {
                             </button>
                         </div>
                     </div>
-                    <div className='flex flex-col gap-4 border-2 border-[#87a] min-h-[100%] w-[35%]'>
+                    <div className='flex flex-col gap-4  min-h-[100%] w-[35%]'>
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d94725.06045080704!2d-80.42500734329225!3d25.821004708483894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9bbb9371d56b9%3A0x8f1742ba3193f1bb!2sThe%20Spot%20Barbershop%20%E2%80%93%20Miami%20Springs!5e1!3m2!1sen!2sus!4v1735839397583!5m2!1sen!2sus"
                             width="461"
@@ -91,14 +91,14 @@ function BonitaSprings() {
                 </div>
 
 
-                <div className=' border-4 border-red-500  h-[80vh] flex flex-col justify-center items-center'>
+                <div className='   h-[80vh] flex flex-col justify-center items-center'>
                     <div
                         class=" w-[30%]  h-[66%] p-6 relative overflow-hidden"
                     >
                         <h2 className='text-[#545454] text-center text-2xl font-bold'>Sign Up - Haircut Giveaway</h2>
                         <div className="flex-shrink-0 w-[100%] flex justify-center ">
                         </div>
-                        <form class="w-full mt-4 space-y-3 border-2 border-red-500">
+                        <form class="w-full mt-4 space-y-3 ">
                             <div>
                                 <input
                                     class="outline-none border-2 rounded-md px-2 py-1 text-slate-500 w-full focus:border-blue-300"

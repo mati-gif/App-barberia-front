@@ -7,9 +7,9 @@ function MobileEfect() {
         }, []);
     return (
         <>
-            <div className='bg-[url()] bg-cover bg-center bg-no-repeat border-4 border-[#45a] w-full min-h-[80vh]'>
-                <div className='border-2 border-[#700] flex justify-center gap-[100px] items-center  w-full h-full'>
-                    <div className='border-2 border-[#4ff] w-[50%] h-[100%] '>
+            <div className='bg-[url()] bg-cover bg-center bg-no-repeat  w-full min-h-[80vh]'>
+                <div className=' flex justify-center gap-[100px] items-center  w-full h-full'>
+                    <div className=' w-[50%] h-[100%] '>
                         <h2 className='text-[#000] text-[50px] font-serif font-bold'>
                             Quality salon
                             Services

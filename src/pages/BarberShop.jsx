@@ -15,8 +15,8 @@ function BarberShop() {
 
     return (
         <>
-            <div className='border-4 border-red-500  min-h-[250vh] '>
-                <div className='border-2 border-[#2e4] min-h-[100vh]'>
+            <div className='  min-h-[250vh] '>
+                <div className=' min-h-[100vh]'>
                     <section className="container mx-auto px-4 py-12">
                         <div className="grid lg:grid-cols-2 gap-12 items-start">
                             {/* Left Column - Text Content */}
@@ -56,7 +56,7 @@ function BarberShop() {
                             </div>
 
                             {/* Right Column - Image and Hours */}
-                            <div className="flex justify-center border-2 border-[#8f6] w-[104%] h-[80%]">
+                            <div className="flex justify-center  w-[104%] h-[80%]">
                                 {/* <div className="rounded-lg overflow-hidden shadow-lg">
                                     <img
                                         src="https://thespotbarbershop.com/wp-content/uploads/2024/08/barber-shaving-cutomer-scaled.jpg"

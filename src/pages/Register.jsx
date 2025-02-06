@@ -162,7 +162,7 @@ function Register() {
     };
     return (
         <>
-            <div className='bg-[url(https://studio-dbrickell.com/wp-content/uploads/2022/12/shutterstock_1128837791-scaled.jpg)] bg-cover bg-center bg-no-repeat  border-4 border-red-500  h-screen flex flex-col justify-center items-center'>
+            <div className='bg-[url(https://studio-dbrickell.com/wp-content/uploads/2022/12/shutterstock_1128837791-scaled.jpg)] bg-cover bg-center bg-no-repeat h-screen flex flex-col justify-center items-center'>
                 <div
                     class=" min-w-[35%] rounded-lg shadow-xl min-h-[65%] p-6 bg-white relative overflow-hidden"
                 >
@@ -178,7 +178,7 @@ function Register() {
                             <img src={logo} alt="logo" className="w-[100px]" />
                         </Link>
                     </div>
-                    <form class="w-full mt-4 space-y-3 border-2 border-red-500">
+                    <form class="w-full mt-4 space-y-3 ">
                         <div>
                             <input
 

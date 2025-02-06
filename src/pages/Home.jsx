@@ -37,7 +37,7 @@ function Home() {
     
     return (
         <>
-            <div className='border-4 border-red-500  min-h-[550vh] '>
+            <div className='  min-h-[550vh] '>
                 <section
                     className="relative bg-[url(https://images.squarespace-cdn.com/content/v1/59a04de337c581c5e1bcd854/1710998377547-DWXDZA5WIX8Q9VKFF0WC/AAA01567.jpg?format=1500w)] bg-cover bg-center bg-no-repeat"
                 >
@@ -48,7 +48,7 @@ function Home() {
                     <div
                         className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                     >
-                        <div className="flex flex-col justify-end border-2 border-[#48e] h-[80%] max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
+                        <div className="flex flex-col justify-end  h-[80%] max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                             <h1 className="text-3xl font-bold text-[#fff] sm:text-5xl">
                                 Let us find your
 
@@ -73,7 +73,7 @@ function Home() {
                         </div>
                     </div>
                 </section>
-                <div className='border-2 border-[#48e] w-full h-[100vh] flex justify-center items-center'>
+                <div className=' w-full h-[100vh] flex justify-center items-center'>
                     <div data-aos="fade-right"
                         data-aos-offset="300"
                         data-aos-easing="ease-in-sine"
@@ -104,7 +104,7 @@ function Home() {
                         data-aos-duration="3000"
 
                         // data-aos-easing="ease-in-sine"
-                        className='border-2 border-purple-500 w-[50%] h-[75%]'>
+                        className=' w-[50%] h-[75%]'>
                         <h2 className='text-[#000] text-[50px] font-serif font-bold'>Welcome To
                             BARBER SHOP</h2>
                         <h3 className="text-[#000] text-[30px] font-serif  ">Come As You Are, Leave At Your Best</h3>
@@ -113,7 +113,7 @@ function Home() {
                             data-aos-duration="3000"
                             className='mt-3 text-[#000] text-[18px]'>High-quality beauty services that build your confidence and transform your looks are what you can expect with every trip you take to Studio-D Brickell. We are your premier high-end salon in Miami, FL, that delivers the looks and styles you desire that will keep heads turning. Whether you’re looking for a fabulous hairstyle, eyelash extensions, Keratin treatment, or another personalized salon service, you’ve come to the right place.
                         </p>
-                        <div className='border-2 border-yellow-500 flex justify-center items-center'>
+                        <div className='flex justify-center items-center'>
                             <button data-aos="fade-up"
                                 data-aos-duration="3000"
                                 className='bg-[#000] text-[#fff] px-4 py-2 mt-4 rounded-md hover:bg-[#181818] hover:text-[#fff]'>

@@ -112,7 +112,7 @@ function Login() {
     return (
 
         <div
-            className='bg-[url(https://studio-dbrickell.com/wp-content/uploads/2022/12/shutterstock_1128837791-scaled.jpg)] bg-cover bg-center bg-no-repeat  border-4 border-red-500  h-screen flex flex-col justify-center items-center'>
+            className='bg-[url(https://studio-dbrickell.com/wp-content/uploads/2022/12/shutterstock_1128837791-scaled.jpg)] bg-cover bg-center bg-no-repeat  h-screen flex flex-col justify-center items-center'>
             <div
                 className=" min-w-[25%] rounded-lg shadow-xl min-h-[60%] p-6 bg-white relative overflow-hidden"
             >
