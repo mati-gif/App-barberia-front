@@ -17,7 +17,7 @@ function Services() {
                     ></div>
 
                     <div
-                        className="border-2 border-green-200  flex flex-col items-baseline justify-center relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
+                        className=" flex flex-col items-baseline justify-center relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                     >
                         <div className="flex flex-col justify-end  h-[100%] max-w-4xl text-center ltr:sm:text-left rtl:sm:text-right">
                             <h1 className="text-5xl font-bold text-[#C57C15] sm:text-5xl">

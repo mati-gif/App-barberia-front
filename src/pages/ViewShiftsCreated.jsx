@@ -69,7 +69,7 @@ function ViewShiftsCreated() {
             }
         }, [email, isLoggedIn, navigate, dispatch, token,role]);
   return (
-    <div className='bg-[#fff] border-4 border-blue-500  min-h-[100vh] '>
+    <div className='bg-[#fff]   min-h-[100vh] '>
     <h2 className="text-3xl font-bold text-center mb-8">All Shifts from all Clients</h2>
     <div className="flex justify-center items-center min-h-screen flex-wrap">
 
