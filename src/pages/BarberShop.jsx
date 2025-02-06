@@ -1,6 +1,6 @@
 import React from 'react'
 import { Phone } from 'lucide-react'
-import BannerInBarberShop from '../components/bannerInBarberShop'
+import BannerInBarberShop from '../components/BannerInBarberShop'
 import Locations from '../components/Locations'
 function BarberShop() {
     const businessHours = [
