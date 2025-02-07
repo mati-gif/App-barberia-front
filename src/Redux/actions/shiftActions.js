@@ -248,7 +248,7 @@ export const cancelShiftOfUser = createAsyncThunk("cancelShiftOfUser", async (id
     catch (error) {
         Swal.fire({
             icon: 'error',
-            title: 'Error al actualizar el precio',
+            title: 'Error al cancelar el turno',
             text: error.response.data,
         });
         return rejectWithValue(error.response.data);
