@@ -227,7 +227,7 @@ export const cancelShiftOfUser = createAsyncThunk("cancelShiftOfUser", async (id
         const token = localStorage.getItem("token");
         console.log(token);
         const url = `https://shift-management-api-6ade.onrender.com/api/Shift/cancel-shift?shiftId=${id}`
-        const response = await axios.put(url, {
+        const response = await axios.put(url,null, {
 
             headers: {
                 Authorization: `Bearer ${token}`
